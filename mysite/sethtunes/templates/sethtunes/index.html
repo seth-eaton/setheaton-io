@@ -1,0 +1,29 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'sethtunes/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+  <div class="sethtunesTit">
+    <div class="content">
+     <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
+    </div>
+  </div>
+  <div class="sethtunesNav">
+    <a href = "artists/">artists</a>
+    <a href = "playlists/">playlists</a>
+    <a href = "new-music/">new music</a>
+  </div>
+  <div class = "sethtunesBody">
+      <div class = 'albumArtworkContainer'>
+        {% if album_list %}
+        {% for album in album_list %}
+        <a href = "{% url 'sethtunes:album_detail' album.id %}"><img src="{{ album.artwork_url }}", class="thumbnail"></a>
+        {% endfor %}
+        {% endif %}
+      </div>
+  </div>
+</div>
+</body>
+</html>

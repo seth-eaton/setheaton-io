@@ -1,0 +1,216 @@
+html {
+  font-family: Tahoma, sans-serif;
+}
+
+body {
+  background-color: white;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #7fc97f;
+  --color-secondary: #64a563;
+  --color-tertiary: #4a8249;
+  --color-quaternary: #316130;
+  --color-quinary: #194219;
+  /*
+  --color-primary: #5192ED;
+  --color-secondary: #69A1F0;
+  --color-tertiary: #7EAEF2;
+  --color-quaternary: #90BAF5;
+  --color-quinary: #A2C4F5;
+  */
+}
+
+.container {
+  display: grid; 
+  grid-template-areas: 
+    "sethtunesTit sethtunesTit"
+    "sethtunesNav sethtunesBody"
+    ". .";
+  grid-template-columns: 210px auto;
+  font-size: 100%;
+  margin: 0;
+}
+
+.sethtunesTit {
+  margin: 0; 
+  grid-area: sethtunesTit;
+  padding-left:25px;
+  width: 100%;
+}
+
+.sethtunesNav { 
+  grid-area: sethtunesNav;
+}
+
+.sethtunesNav a {
+  display: block;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 2.5px;
+  padding-bottom: 2.5px;
+  text-decoration: none;
+  font-size:30px;
+  color: #7fc97f;
+  transition: 0.3s;
+}
+
+.sethtunesNav a:hover {
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #7fc97f;
+  color: white;
+}
+
+.sethtunesBody { 
+  grid-area: sethtunesBody; 
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.albumArtworkContainer {
+  margin: 8px;
+}
+
+.thumbnail {
+  height: 80px;
+  width: 80px;
+  padding: 5px;
+}
+
+.thumbnail:hover {
+  transform: scale(1.2);
+}
+
+.albumDetailContainer {
+  margin: 8px;
+}
+
+.albumDetailHeader {
+  height: 120px;
+  background-color: #7fc97f;
+  color: white;
+  margin: 0px;
+  display: flex;
+  align-items: top;
+}
+
+.albumDetailHeader img {
+  float: left;
+  padding: 10;
+}
+
+.albumDetailHeaderInfo {
+  padding-top: 10px;
+}
+
+.albumDetailHeaderInfo h1 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 0px;
+}
+
+.albumDetailheaderInfo h3 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0px;
+}
+
+.albumDetailSongRow {
+  color: #7fc97f;
+  height: 80px;
+  padding-top: 10px;
+  padding-left: 10px;
+  border-top: solid;
+}
+
+.albumDetailSongRow a {
+  color: #7fc97f;
+}
+
+.albumDetailSongRow h1 {
+  font-weight: normal;
+  font-size: 25px;
+  margin: 0px;
+}
+
+.albumDetailSongRow h3 {
+  font-weight: normal;
+  font-size: 15px;
+  margin: 0px;
+}
+
+.content {
+  display: flex;
+  align-content: left;
+  justify-content: left;
+}
+
+.text_shadows {
+  text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
+    9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
+  font-family: bungee, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: calc(2rem + 5vw);
+  text-align: center;
+  margin: 0;
+  color: var(--color-primary);
+  animation: shadows 0.6s ease-in;
+  letter-spacing: 0.4rem;
+}
+
+@keyframes shadows {
+  0% {
+    text-shadow: none;
+  }
+  20% {
+    text-shadow: 3px 3px 0 var(--color-secondary);
+  }
+  40% {
+    text-shadow: 3px 3px 0 var(--color-secondary),
+      6px 6px 0 var(--color-tertiary);
+  }
+  60% {
+    text-shadow: 3px 3px 0 var(--color-secondary),
+      6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary);
+  }
+  80% {
+    text-shadow: 3px 3px 0 var(--color-secondary),
+      6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary),
+      12px 12px 0 var(--color-quinary);
+  }
+  100% {
+    text-shadow: 3px 3px 0 var(--color-secondary),
+      6px 6px 0 var(--color-tertiary), 9px 9px var(--color-quaternary),
+      12px 12px 0 var(--color-quinary);
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  40% {
+    transform: translate(-12px, -12px);
+  }
+  50% {
+    transform: translate(-12px, -12px);
+  }
+  60% {
+    transform: translate(-12px, -12px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}

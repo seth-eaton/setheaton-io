@@ -1,0 +1,35 @@
+{% if artist %}
+    <p>Name: {{ artist.artist_name }}<br>
+    Artist ID: {{ artist.id }}<br>
+    Added: {{ artist.added_date }}<br>
+    Genre: {{ artist.genre }}<br>
+    Genre ID: {{ artist.genre_id }}<br>
+    Itunes ID: {{ artist.itunes_id }}<br>
+    Amg ID: {{ artist.amg_id }}</p>
+    {% if albums %}
+    </ul>
+    <p>Albums:</p>
+    {% for album in albums %}
+    <li><a href = "{% url 'sethtunes:album_detail' album.id %}">{{ album.album_name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if eps %}
+    <p>EPs:</p>
+    </ul>
+    {% for ep in eps %}
+    <li><a href = "{% url 'sethtunes:album_detail' ep.id %}">{{ ep.album_name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    {% if singles %}
+    <p>Singles:</p>
+    </ul>
+    {% for single in singles %}
+    <li><a href = "{% url 'sethtunes:album_detail' single.id %}">{{ single.album_name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+{% else %}
+    <p>No albums are available.</p>
+{% endif %}
