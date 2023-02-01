@@ -18,7 +18,7 @@ def artist_detail(request, artist_id):
         albums = artist.album_set.filter(album_type='Album').order_by('-release_date').values()
         eps = artist.album_set.filter(album_type='EP').order_by('-release_date').values()
         singles = artist.album_set.filter(album_type='Single').order_by('-release_date').values()
-    return render(request, 'sethtunes/artist_detail.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles})
+    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles})
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
@@ -27,4 +27,7 @@ def album_detail(request, album_id):
 
 def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
-    return render(request, 'sethtunes/song_detail_test.html', {'song':song})
+    return render(request, 'sethtunes/song_detail.html', {'song':song})
+
+def embed_test(request):
+    return render(request, 'sethtunes/embed_test.html')

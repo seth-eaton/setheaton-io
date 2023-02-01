@@ -92,6 +92,37 @@ a {
   transform: scale(1.2);
 }
 
+.aristDetailContainer {
+  margin: 8px;
+}
+
+.artistDetailHeader {
+  height: 120px;
+  background-color: #7fc97f;
+  color: white;
+  margin: 0px;
+  display: flex;
+  align-items: top;
+}
+
+.aristDetailHeaderInfo {
+  padding-top: 10px;
+}
+
+.artistDetailHeaderInfo h1 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 0px;
+  padding-left: 10px;
+}
+
+.artistDetailheaderInfo h3 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0px;
+  padding-left: 10px;
+}
+
 .albumDetailContainer {
   margin: 8px;
 }
@@ -114,6 +145,14 @@ a {
   padding-top: 10px;
 }
 
+.albumDetailHeaderInfo a {
+  color: white;
+}
+
+.albumDetailheaderInfo a:hover {
+  text-decoration: underline;
+}
+
 .albumDetailHeaderInfo h1 {
   font-size: 30px;
   font-weight: normal;
@@ -134,6 +173,7 @@ a {
   border-top: solid;
 }
 
+
 .albumDetailSongRow a {
   color: #7fc97f;
 }
@@ -147,6 +187,52 @@ a {
 .albumDetailSongRow h3 {
   font-weight: normal;
   font-size: 15px;
+  margin: 0px;
+}
+
+.songDetailContainer {
+  margin: 8px;
+}
+
+.songDetailContainer iframe {
+  padding-top: 25px;
+}
+
+.songDetailHeader {
+  height: 120px;
+  background-color: #7fc97f;
+  color: white;
+  margin: 0px;
+  display: flex;
+  align-items: top;
+}
+
+.songDetailHeader img {
+  float: left;
+  padding: 10;
+}
+
+.songDetailHeaderInfo {
+  padding-top: 10px;
+}
+
+.songDetailHeaderInfo a {
+  color: white;
+}
+
+.songDetailHeaderInfo a:hover {
+  text-decoration: underline;
+}
+
+.songDetailHeaderInfo h1 {
+  font-size: 30px;
+  font-weight: normal;
+  margin: 0px;
+}
+
+.songDetailheaderInfo h3 {
+  font-size: 15px;
+  font-weight: normal;
   margin: 0px;
 }
 
