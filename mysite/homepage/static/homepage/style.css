@@ -40,7 +40,7 @@ svg text {
 .linkContainerAbout {
   height:100%;
   background-color: #f0deb4;
-  font-size: 60px;
+  font-size: calc(1.2rem + 3.2vw);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +57,7 @@ svg text {
 }
 
 .linkContainerAbout a:hover {
-  text-decoration: underline;
+  font-size: calc(1.4rem + 3.4vw);
 }
 
 .sethtunesContainer {
@@ -82,14 +82,52 @@ svg text {
   text-align: center;
   margin: 0;
   color: var(--color-primary);
-  animation: shadows 0.6s ease-in;
   letter-spacing: 0.4rem;
+}
+
+.text_shadows:hover {
+  animation: shadows 0.6s ease-in;
 }
 
 .content {
   display: flex;
   align-content: left;
   justify-content: left;
+}
+
+.sethtunesNotFoundContainer {
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sethtunesNotFoundContainer h1 {
+  color: #7fc97f;
+  text-align: center;
+  font-family: Tahoma, sans-serif;
+  font-weight: normal;
+}
+
+.notFoundContent {
+  display: flex;
+  align-content: left;
+  justify-content: left;
+}
+
+.notFoundText_shadows {
+  text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
+    9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
+  font-family: bungee, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: calc(6rem + 9vw);
+  text-align: center;
+  margin: 0;
+  color: var(--color-primary);
+  animation: shadows 0.6s ease-in;
+  letter-spacing: 0.4rem;
 }
 
 @keyframes shadows {
@@ -118,25 +156,6 @@ svg text {
       12px 12px 0 var(--color-quinary);
   }
 }
-
-@keyframes move {
-  0% {
-    transform: translate(0px, 0px);
-  }
-  40% {
-    transform: translate(-12px, -12px);
-  }
-  50% {
-    transform: translate(-12px, -12px);
-  }
-  60% {
-    transform: translate(-12px, -12px);
-  }
-  100% {
-    transform: translate(0px, 0px);
-  }
-}
-
 
 @keyframes stroke {
   0%   {

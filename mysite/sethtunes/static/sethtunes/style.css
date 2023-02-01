@@ -282,21 +282,3 @@ a {
       12px 12px 0 var(--color-quinary);
   }
 }
-
-@keyframes move {
-  0% {
-    transform: translate(0px, 0px);
-  }
-  40% {
-    transform: translate(-12px, -12px);
-  }
-  50% {
-    transform: translate(-12px, -12px);
-  }
-  60% {
-    transform: translate(-12px, -12px);
-  }
-  100% {
-    transform: translate(0px, 0px);
-  }
-}
