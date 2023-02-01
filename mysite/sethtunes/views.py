@@ -28,6 +28,3 @@ def album_detail(request, album_id):
 def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
     return render(request, 'sethtunes/song_detail.html', {'song':song})
-
-def embed_test(request):
-    return render(request, 'sethtunes/embed_test.html')
