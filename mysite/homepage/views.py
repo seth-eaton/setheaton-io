@@ -5,6 +5,9 @@ from django.conf import settings
 def home(request):
     return render(request, 'homepage/home.html')
 
+def projects(request):
+    return render(request, 'homepage/projects.html')
+
 def home_test(request):
     return render(request, 'homepage/home_test.html')
 

@@ -1,21 +1,22 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'homepage/style.css' %}">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Ubuntu+Mono" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rubik">
 
 <!DOCTYPE html>
 <html>
 <body>
+    <nav>
+        <span>
+            <a href='about/'>about</a>
+            <a href='links/'>links</a>
+            <a href='contact/'>contact</a>
+            <a href='projects/'>projects</a>
+        </span>
+    </nav>
     <svg viewBox="0 0 1320 300">
         <text x="50%" y="50%" dy=".35em" text-anchor="middle">
             setheaton.io
         </text>
     </svg>
-    <div class="linkContainerAbout">
-        <a href='/about/'><h1>about</h1></a>
-    </div>
-    <div class="sethtunesContainer">
-        <div class="content">
-            <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
-        </div>
-    </div>
 </html>

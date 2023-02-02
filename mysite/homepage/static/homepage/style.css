@@ -19,14 +19,16 @@
   */
 }
 
-body {
+html, body {
   background: #85844f;
   margin: 0;
-  font-family: 'Ubuntu Mono';
+  font-family: 'Rubik';
 }
 
 svg {
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 90%;
+  transform: translateY(-5%);
 }
 
 svg text {
@@ -37,39 +39,65 @@ svg text {
   font-size: 140px;
 }
 
-.linkContainerAbout {
-  height:100%;
-  background-color: #f0deb4;
-  font-size: calc(1.2rem + 3.2vw);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+nav {
+  height: 10%;
+  width: 100%;
+  display: grid;
+  place-items: start end;
 }
 
-.linkContainerAbout h1 {
-  color: #85844f;
-  font-weight: normal;
+nav span {
+  padding-top: 6px;
 }
 
-.linkContainerAbout a {
+nav a {
+  color: #343603;
+  padding-right: 15px;
   text-decoration: none;
-  color: #85844f;
+  font-size: 20px;
+  vertical-align: top;
 }
 
-.linkContainerAbout a:hover {
-  font-size: calc(1.4rem + 3.4vw);
+nav a:hover {
+  font-size: 22px;
+}
+
+.notFound svg {
+  height: 100%;
+  transform: translateY(0%);
 }
 
 .sethtunesContainer {
-  height: 100%;
+  height: 100vh;
   background-color: #fcfae7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100vw;
+}
+
+.sethtunesContainer nav {
+  height: 10vh;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+}
+
+.sethtunesContainer nav a {
+  color: #7fc97f;
 }
 
 .sethtunesContainer a {
   text-decoration: none;
+}
+
+.sethtunesLogoContainer {
+  height: 90vh;
+  width: 100vw;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.sethtunesLogo {
+  transform: translateY(-5vh);
 }
 
 .text_shadows {
