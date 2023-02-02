@@ -1,26 +1,59 @@
 body {
   background-color: #000;
   color: #fff;
-  min-height: 100vh;
+  margin: 0px;
+}
+
+nav {
+  height: 5%;
+  width: 100%;
   display: grid;
+  place-items: start end;
+}
+
+nav span {
+  padding-top: 6px;
+}
+
+nav a {
+  color: white;
+  padding-right: 15px;
+  text-decoration: none;
+  font-size: 20px;
+  vertical-align: top;
+}
+
+nav a:hover {
+  font-size: 22px;
+}
+
+.container {
+  display: grid;
+  height: 95%;
   place-items: center;
   perspective: 500px;
   perspective-origin: 50% calc(50% - 150px);
 }
+
+
 .scene {
-  position: relative;
+  padding-top: 50%
+  position: absolute;
   transform-style: preserve-3d;
 }
+
 .banner {
   display: flex;
   transform-style: preserve-3d;
-  animation: rotate 24s infinite linear;
+  animation: rotate 20s infinite linear;
 }
+
 @keyframes rotate {
   to {
     transform: rotateY(-360deg);
   }
 }
+
 .panel {
   position: absolute;
   transform: translate(-50%, -50%) rotateY(var(--angle)) translateZ(190px);
@@ -28,45 +61,53 @@ body {
   height: 120px;
   overflow: hidden;
 }
+
 .panel::before {
   position: absolute;
   left: var(--left);
-  font-family: 'Ubuntu Mono';
-  content: "setheaton.io // setheaton.io // ";
-  font-size: 74px;
+  font-family: 'Rubik';
+  content: "setheaton.io -- setheaton.io -- ";
+  font-size: 82px;
   width: max-content;
   color: hsl(var(--hue), 75%, 75%);
 }
+
 .panel:nth-child(1) {
   --left: 0px;
   --hue: 0;
   --angle: 0deg;
 }
+
 .panel:nth-child(2) {
   --left: -50px;
   --hue: 15;
   --angle: 15deg;
 }
+
 .panel:nth-child(3) {
   --left: -100px;
   --hue: 30;
   --angle: 30deg;
 }
+
 .panel:nth-child(4) {
   --left: -150px;
   --hue: 45;
   --angle: 45deg;
 }
+
 .panel:nth-child(5) {
   --left: -200px;
   --hue: 60;
   --angle: 60deg;
 }
+
 .panel:nth-child(6) {
   --left: -250px;
   --hue: 75;
   --angle: 75deg;
 }
+
 .panel:nth-child(7) {
   --left: -300px;
   --hue: 90;
@@ -77,90 +118,267 @@ body {
   --hue: 105;
   --angle: 105deg;
 }
+
 .panel:nth-child(9) {
   --left: -400px;
   --hue: 120;
   --angle: 120deg;
 }
+
 .panel:nth-child(10) {
   --left: -450px;
   --hue: 135;
   --angle: 135deg;
 }
+
 .panel:nth-child(11) {
   --left: -500px;
   --hue: 150;
   --angle: 150deg;
 }
+
 .panel:nth-child(12) {
   --left: -550px;
   --hue: 165;
   --angle: 165deg;
 }
+
 .panel:nth-child(13) {
   --left: -600px;
   --hue: 180;
   --angle: 180deg;
 }
+
 .panel:nth-child(14) {
   --left: -650px;
   --hue: 195;
   --angle: 195deg;
 }
+
 .panel:nth-child(15) {
   --left: -700px;
   --hue: 210;
   --angle: 210deg;
 }
+
 .panel:nth-child(16) {
   --left: -750px;
   --hue: 225;
   --angle: 225deg;
 }
+
 .panel:nth-child(17) {
   --left: -800px;
   --hue: 240;
   --angle: 240deg;
 }
+
 .panel:nth-child(18) {
   --left: -850px;
   --hue: 255;
   --angle: 255deg;
 }
+
 .panel:nth-child(19) {
   --left: -900px;
   --hue: 270;
   --angle: 270deg;
 }
+
 .panel:nth-child(20) {
   --left: -950px;
   --hue: 285;
   --angle: 285deg;
 }
+
 .panel:nth-child(21) {
   --left: -1000px;
   --hue: 300;
   --angle: 300deg;
 }
+
 .panel:nth-child(22) {
   --left: -1050px;
   --hue: 315;
   --angle: 315deg;
 }
+
 .panel:nth-child(23) {
   --left: -1100px;
   --hue: 330;
   --angle: 330deg;
 }
+
 .panel:nth-child(24) {
   --left: -1150px;
   --hue: 345;
   --angle: 345deg;
 }
+
+.panelNF {
+  position: absolute;
+  transform: translate(-50%, -50%) rotateY(var(--angle)) translateZ(190px);
+  width: 50px;
+  height: 120px;
+  overflow: hidden;
+}
+
+.panelNF::before {
+  position: absolute;
+  left: var(--left);
+  font-family: 'Rubik';
+  content: "you got 404'ed! you got 404'ed! ";
+  font-size: 80px;
+  width: max-content;
+  color: hsl(var(--hue), 75%, 75%);
+}
+
+.panelNF:nth-child(1) {
+  --left: 0px;
+  --hue: 0;
+  --angle: 0deg;
+}
+
+.panelNF:nth-child(2) {
+  --left: -50px;
+  --hue: 15;
+  --angle: 15deg;
+}
+
+.panelNF:nth-child(3) {
+  --left: -100px;
+  --hue: 30;
+  --angle: 30deg;
+}
+
+.panelNF:nth-child(4) {
+  --left: -150px;
+  --hue: 45;
+  --angle: 45deg;
+}
+
+.panelNF:nth-child(5) {
+  --left: -200px;
+  --hue: 60;
+  --angle: 60deg;
+}
+
+.panelNF:nth-child(6) {
+  --left: -250px;
+  --hue: 75;
+  --angle: 75deg;
+}
+
+.panelNF:nth-child(7) {
+  --left: -300px;
+  --hue: 90;
+  --angle: 90deg;
+}
+.panelNF:nth-child(8) {
+  --left: -350px;
+  --hue: 105;
+  --angle: 105deg;
+}
+
+.panelNF:nth-child(9) {
+  --left: -400px;
+  --hue: 120;
+  --angle: 120deg;
+}
+
+.panelNF:nth-child(10) {
+  --left: -450px;
+  --hue: 135;
+  --angle: 135deg;
+}
+
+.panelNF:nth-child(11) {
+  --left: -500px;
+  --hue: 150;
+  --angle: 150deg;
+}
+
+.panelNF:nth-child(12) {
+  --left: -550px;
+  --hue: 165;
+  --angle: 165deg;
+}
+
+.panelNF:nth-child(13) {
+  --left: -600px;
+  --hue: 180;
+  --angle: 180deg;
+}
+
+.panelNF:nth-child(14) {
+  --left: -650px;
+  --hue: 195;
+  --angle: 195deg;
+}
+
+.panelNF:nth-child(15) {
+  --left: -700px;
+  --hue: 210;
+  --angle: 210deg;
+}
+
+.panelNF:nth-child(16) {
+  --left: -750px;
+  --hue: 225;
+  --angle: 225deg;
+}
+
+.panelNF:nth-child(17) {
+  --left: -800px;
+  --hue: 240;
+  --angle: 240deg;
+}
+
+.panelNF:nth-child(18) {
+  --left: -850px;
+  --hue: 255;
+  --angle: 255deg;
+}
+
+.panelNF:nth-child(19) {
+  --left: -900px;
+  --hue: 270;
+  --angle: 270deg;
+}
+
+.panelNF:nth-child(20) {
+  --left: -950px;
+  --hue: 285;
+  --angle: 285deg;
+}
+
+.panelNF:nth-child(21) {
+  --left: -1000px;
+  --hue: 300;
+  --angle: 300deg;
+}
+
+.panelNF:nth-child(22) {
+  --left: -1050px;
+  --hue: 315;
+  --angle: 315deg;
+}
+
+.panelNF:nth-child(23) {
+  --left: -1100px;
+  --hue: 330;
+  --angle: 330deg;
+}
+
+.panelNF:nth-child(24) {
+  --left: -1150px;
+  --hue: 345;
+  --angle: 345deg;
+}
+
 .screen {
   position: absolute;
   width: 400px;
   height: 400px;
-  background-image: linear-gradient(90deg, #000a, #0004, #000a);
   transform: translate(-50%, -50%);
 }
