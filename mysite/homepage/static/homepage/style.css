@@ -127,9 +127,13 @@ nav a:hover {
   justify-content: left;
 }
 
+.sethtunesNotFoundBackground {
+  background-color: #fcfae7;
+}
+
 .sethtunesNotFoundContainer {
   height: 100%;
-  background-color: white;
+  background-color: #fcfae7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,7 +142,7 @@ nav a:hover {
 .sethtunesNotFoundContainer h1 {
   color: #7fc97f;
   text-align: center;
-  font-family: Tahoma, sans-serif;
+  font-family: Quicksand;
   font-weight: normal;
 }
 
