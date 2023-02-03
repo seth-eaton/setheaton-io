@@ -8,6 +8,9 @@ def home(request):
 def projects(request):
     return render(request, 'homepage/projects.html')
 
+def about(request):
+    return render(request, 'homepage/about.html')
+
 def home_test(request):
     return render(request, 'homepage/home_test.html')
 

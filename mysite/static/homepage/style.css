@@ -67,6 +67,10 @@ nav a:hover {
   transform: translateY(0%);
 }
 
+.projectsBackground {
+  background-color: #fcfae7;
+}
+
 .sethtunesContainer {
   height: 100vh;
   background-color: #fcfae7;
