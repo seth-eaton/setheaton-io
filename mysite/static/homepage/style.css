@@ -92,7 +92,51 @@ nav a:hover {
 .homeMobile .icons img {
   max-height: 40px;
   width: auto;
-  padding-left: 15px;
+  padding-left: 20px;
+}
+
+.mobileAboutHtml {
+  background-color: #e9e3c3;
+}
+
+.mobileAbout {
+  background-color: #e9e3c3;
+}
+
+.mobileAbout svg {
+  width: 100vw;
+  height: 15vh;
+}
+
+.mobileAbout svg text {
+  animation: amStroke 2.5s;
+  fill: #e9e3c3;
+  stroke-width: 6;
+  stroke: #4e4f1d;
+  font-size: 140px;
+}
+
+.mobileAbout nav a {
+  font-size: 40px;
+}
+
+.mobileAbout .icons img {
+  max-height: 40px;
+  width: auto;
+  padding-left: 20px;
+}
+
+.mobileAbout p {
+  width: 80vw;
+  text-align: left;
+  text-indent: 50px;
+  font-size: 25px;
+  margin: 0 10vw 0 10vw;
+}
+
+.mobileAbout a {
+  color: #4e4f1d;
+  text-decoration: none;
 }
 
 .notFound svg {
@@ -276,5 +320,18 @@ nav a:hover {
   100% {
     fill: rgba(52,54,3,0); stroke: rgba(52,54,3,1); 
     stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 4;
+  }
+}
+
+@keyframes amStroke {
+  0%   {
+    fill: rgba(52,54,3,0); stroke: rgba(52,54,3,1);
+    stroke-dashoffset: 25%; stroke-dasharray: 0 50%; stroke-width: 4;
+  }
+  70%  {fill: rgba(52,54,3,0); stroke: rgba(52,54,3,1); }
+  80%  {fill: rgba(52,54,3,0); stroke: rgba(52,54,3,1); stroke-width: 5; }
+  100% {
+    fill: rgba(52,54,3,0); stroke: rgba(52,54,3,1); 
+    stroke-dashoffset: -25%; stroke-dasharray: 50% 0; stroke-width: 6;
   }
 }
