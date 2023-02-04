@@ -139,6 +139,20 @@ nav a:hover {
   text-decoration: none;
 }
 
+.mobileProjects {
+  background-color: #fcfae7;
+}
+
+.mobileProjects nav a {
+  font-size: 40px;
+}
+
+.mobileProjects .icons img {
+  max-height: 40px;
+  width: auto;
+  padding-left: 20px;
+}
+
 .notFound svg {
   height: 100vh;
   transform: translateY(0%);

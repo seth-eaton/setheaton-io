@@ -9,7 +9,10 @@ def home(request):
         return render(request, 'homepage/home.html')
 
 def projects(request):
-    return render(request, 'homepage/projects.html')
+    if request.user_agent.is_mobile:
+        return render(request, 'homepage/mobile_projects.html')
+    else:
+        return render(request, 'homepage/projects.html')
 
 def about(request):
     if request.user_agent.is_mobile:
