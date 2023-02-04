@@ -3,7 +3,10 @@ from django.conf import settings
 
 # Create your views here.
 def home(request):
-    return render(request, 'homepage/home.html')
+    if request.user_agent.is_mbile:
+        return render(request, 'homepage/mobile_home.html')
+    else:
+        return render(request, 'homepage/home.html')
 
 def projects(request):
     return render(request, 'homepage/projects.html')
