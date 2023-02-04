@@ -85,6 +85,15 @@ nav a:hover {
   padding-right: 0;
 }
 
+.homeMobile nav a {
+  font-size: 35px;
+}
+
+.homeMobile .icons img {
+  max-height: 35px;
+  width: auto;
+}
+
 .notFound svg {
   height: 100vh;
   transform: translateY(0%);
