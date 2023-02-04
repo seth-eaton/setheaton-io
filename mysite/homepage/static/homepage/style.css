@@ -86,12 +86,13 @@ nav a:hover {
 }
 
 .homeMobile nav a {
-  font-size: 35px;
+  font-size: 40px;
 }
 
 .homeMobile .icons img {
-  max-height: 35px;
+  max-height: 40px;
   width: auto;
+  padding-left: 15px;
 }
 
 .notFound svg {
