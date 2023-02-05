@@ -1,5 +1,10 @@
 from django.db import models
 
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, quote
+from urllib.request import urlopen, Request
+import re
+
 # Create your models here.
 
 class Artist(models.Model):
@@ -34,3 +39,20 @@ class Song(models.Model):
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
     explicit = models.CharField(default=None, max_length=100)
+
+class PFReview(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    album_name = models.CharField(max_length=1000)
+    artist_name = models.CharField(max_length=500)
+    url = models.CharField(max_length=200)
+    score = models.DecimalField(default=0.0, max_digits=3, decimal_places=1)
+    author = models.CharField(default=None, max_length=500)
+    abstract = models.CharField(default=None, max_length=1500)
+    editorial = models.CharField(default=None, max_length = 25000)
+    bnm = models.BooleanField(default=False)
+
+class Embed(models.Model):
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    embed_url = models.CharField(max_length=300)
+    embed_type = models.CharField(max_length=100)
+

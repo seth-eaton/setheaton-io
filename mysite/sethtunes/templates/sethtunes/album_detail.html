@@ -1,10 +1,12 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'sethtunes/style.css' %}">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Passion+One">
 
 <!DOCTYPE html>
 <html>
-<body>
+<script src="{% static 'sethtunes/album_detail.js' %}"></script>
+<body onload="show_song_content()">
 <div class="container">
     <div class="sethtunesTit">
         <div class="content">
@@ -12,11 +14,17 @@
         </div>
     </div>
     <div class="sethtunesNav">
-        <a href = "/">home</a>
         <a href = "playlists/">playlists</a>
         <a href = "new-music/">new music</a>
+        <a href = "/">main site</a>
     </div>
     <div class = "sethtunesBody">
+        {% if pfreview %}
+        <span class = "contentSelect">
+            <button onclick="show_song_content()">Songs</button>
+            <button onclick="show_pf_content()">Pitchfork</button>
+        </span>
+        {% endif %}
         {% if album %}
         <div class = 'albumDetailContainer'>
             <div class = 'albumDetailHeader'>
@@ -27,12 +35,29 @@
                 </div>
             </div>
             {% if songs %}
-            {% for song in songs %}
-            <div class = 'albumDetailSongRow'>
-                <a href = "{% url 'sethtunes:song_detail' song.id %}"><h1>{{ song.song_name }}</h1></a>
-                <h3>{{ song.track_time|slice:"2:7" }}</h3>
+            <div id = "songContent">
+                {% for song in songs %}
+                <div class = 'albumDetailSongRow'>
+                    <a href = "{% url 'sethtunes:song_detail' song.id %}"><h1>{{ song.song_name }}</h1></a>
+                    <h3>{{ song.track_time|slice:"2:7" }}</h3>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            {% endif %}
+            {% if pfreview %}
+            <div class = "pitchforkReview" id = "pitchforkContent">
+                <a href="http://pitchfork.com{{ pfreview.url}}", target="_blank">
+                {% if pfreview.bnm %}
+                    <h1>{{ pfreview.score }} | Best New Music | {{ pfreview.author }}</h1>
+                {% else %}
+                    <h1>{{ pfreview.score }} | {{ pfreview.author }}</h1>
+                {% endif %}
+                </a>
+                <p class = "abstract">{{ pfreview.abstract }}</p>
+                {% for paragraph in pfeditorial %}
+                <p>{{ paragraph }}</p>
+                {% endfor %}
+            </div>
             {% endif %}
         </div>
         {% endif %}

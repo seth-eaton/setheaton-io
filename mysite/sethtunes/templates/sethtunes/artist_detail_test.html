@@ -1,10 +1,12 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'sethtunes/style.css' %}">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Passion+One">
 
 <!DOCTYPE html>
 <html>
-<body>
+<script src="{% static 'sethtunes/artist_detail.js' %}"></script>
+<body onload="show_albums()">
 <div class="container">
     <div class="sethtunesTit">
         <div class="content">
@@ -12,19 +14,75 @@
         </div>
     </div>
     <div class="sethtunesNav">
-        <a href = "artists/">artists</a>
         <a href = "playlists/">playlists</a>
         <a href = "new-music/">new music</a>
+        <a href = "/">main site</a>
     </div>
     <div class = "sethtunesBody">
         {% if artist %}
         <div class = 'artistDetailContainer'>
+            <span class = "contentSelect">
+                {% if albums %}
+                <button onclick="show_albums()">Albums</button>
+                {% endif %}
+                {% if eps %}
+                <button onclick="show_eps()">EPs</button>
+                {% endif %}
+                {% if singles %}
+                <button onclick="show_singles()">Singles</button>
+                {% endif %}
+            </span>
             <div class = 'artistDetailHeader'>
                 <div class = 'artistDetailHeaderInfo'>
                     <h1>{{ artist.artist_name }}</h1>
                     <h3>{{ artist.genre }}</h3>
                 </div>
             </div>
+            {% if albums %}
+            <div class = "artistDetailAlbums" id = "albums">
+                {% for album in albums %}
+                <div class = "artistDetailAlbumRow">
+                    <a href="{% url 'sethtunes:album_detail' album.id %}">
+                    <img src = "{{ album.artwork_url }}">
+                    <div class = "artistDetailAlbumInfo">
+                        <h1>{{ album.album_name }}</h1>
+                        <h3>{{ album.release_date|date:'Y' }}</h3>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if eps %}
+            <div class = "artistDetailEPs" id = "eps">
+                {% for ep in eps %}
+                <div class = "artistDetailAlbumRow">
+                    <a href="{% url 'sethtunes:album_detail' ep.id %}">
+                    <img src = "{{ ep.artwork_url }}">
+                    <div class = "artistDetailAlbumInfo">
+                        <h1>{{ ep.album_name }}</h1>
+                        <h3>{{ ep.release_date|date:'Y' }}</h3>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if singles %}
+            <div class = "artistDetailSingles" id = "singles">
+                {% for single in singles %}
+                <div class = "artistDetailAlbumRow">
+                    <a href="{% url 'sethtunes:album_detail' single.id %}">
+                    <img src = "{{ single.artwork_url }}">
+                    <div class = "artistDetailAlbumInfo">
+                        <h1>{{ single.album_name }}</h1>
+                        <h3>{{ single.release_date|date:'Y' }}</h3>
+                    </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
         {% endif %}
     </div>

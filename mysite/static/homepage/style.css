@@ -140,7 +140,7 @@ nav a:hover {
 }
 
 .mobileProjects {
-  background-color: #fcfae7;
+  background-color: #f8fff8;
 }
 
 .mobileProjects nav a {
@@ -202,12 +202,12 @@ nav a:hover {
 }
 
 .projectsBackground {
-  background-color: #fcfae7;
+  background-color: #f8fff8;
 }
 
 .sethtunesContainer {
   height: 100vh;
-  background-color: #fcfae7;
+  background-color: #f8fff8;
   width: 100vw;
 }
 
@@ -241,7 +241,7 @@ nav a:hover {
 .text_shadows {
   text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
     9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
-  font-family: bungee, sans-serif;
+  font-family: Passion One;
   font-weight: 400;
   text-transform: uppercase;
   font-size: calc(2rem + 5vw);
@@ -259,12 +259,12 @@ nav a:hover {
 }
 
 .sethtunesNotFoundBackground {
-  background-color: #fcfae7;
+  background-color: #f8fff8;
 }
 
 .sethtunesNotFoundContainer {
   height: 100%;
-  background-color: #fcfae7;
+  background-color: #f8fff8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -286,7 +286,7 @@ nav a:hover {
 .notFoundText_shadows {
   text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
     9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
-  font-family: bungee, sans-serif;
+  font-family: Passion One;
   font-weight: 400;
   text-transform: uppercase;
   font-size: calc(6rem + 9vw);

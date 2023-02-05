@@ -1,9 +1,13 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone 
-from sethtunes.models import Artist, Album, Song
+from sethtunes.models import Artist, Album, Song, PFReview
+from bs4 import BeautifulSoup
+from urllib.parse import urljoin, quote
+from urllib.request import urlopen, Request
 import datetime
 import requests
 import json
+import re
 
 class Command(BaseCommand):
     help = 'Scrapes iTunes for data from a list of artists from a file'
@@ -48,11 +52,15 @@ class Command(BaseCommand):
                     if (song_results := self.find_songs(album_results[i]['collectionId'])):
                         try:
                             album = self.add_album(artist, album_results[i])
+                            try:
+                                self.find_pf(album.artist_name, album.album_name, album)
+                            except:
+                                pass
                             for j in range(1, len(song_results)):
                                 if (song := self.add_song(album, artist, song_results[j])):
                                     pass
                         except:
-                            self.stdout.write(self.style.NOTICE('error adding album'))
+                            self.stdout.write(self.style.NOTICE('Error adding album'))
                     else:
                         self.stdout.write(self.style.NOTICE('Could not find songs for %s' % album_results[i]['collectionName']))
             else:
@@ -138,6 +146,8 @@ class Command(BaseCommand):
             album_type = 'EP'
         elif album_result['collectionName'].count('Single') > 0:
             album_type = 'Single'
+        elif album_result['collectionName'].count('Remixes') > 0:
+            album_type = 'Remixes'
         else:
             album_type = 'Album'
         album = artist.album_set.create(album_name = album_result['collectionName'], added_date = timezone.now(), artist_name = artist.artist_name, release_date = self.release_date(album_result['releaseDate']), genre = album_result['primaryGenreName'], itunes_id = album_result['collectionId'], artwork_url = album_result['artworkUrl100'], album_type = album_type)
@@ -163,3 +173,67 @@ class Command(BaseCommand):
         date =  datetime.datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
         date_aware = date.replace(tzinfo=datetime.timezone.utc)
         return date_aware
+
+    def find_pf(self, artist_name, album_name, album):
+        query = '{} {}'.format(artist_name, album_name)
+        query = quote(query)
+        # using a custom user agent header
+        request = Request(url='http://pitchfork.com/search/?query=' + query,
+                          data=None,
+                          headers={'User-Agent': 'tejassharma/pitchfork-v0.1'})
+        response = urlopen(request)
+        text = response.read().decode('UTF-8').split('window.App=')[1].split(';</script>')[0]
+
+        # the server responds with json so we load it into a dictionary
+        obj = json.loads(text)
+
+        try:
+            # get the nested dictionary containing url to the review and album name
+            review_dict = obj['context']['dispatcher']['stores']['SearchStore']['results']['albumreviews']['items'][0]
+        
+            url = review_dict['url']
+            matched_artist = review_dict['artists'][0]['display_name']
+
+            #print(json.dumps(review_dict, indent=2))
+
+            # fetch the review page
+            full_url = urljoin('http://pitchfork.com/', url)
+            request = Request(url=full_url,
+                              data=None,
+                              headers={'User-Agent': 'tejassharma/pitchfork-v0.1'})
+            response_text = urlopen(request).read()
+            soup = BeautifulSoup(response_text, "lxml")
+            
+            if soup.find(class_='review-multi') is None:
+                r = PFReview(album=album, album_name=album_name, artist_name=artist_name, url=url, score=self.score(soup), author=self.author(soup), abstract=self.abstract(soup), editorial=self.editorial(soup), bnm=self.bnm(soup))
+                r.save()
+            else:
+                pass
+        except IndexError:
+            pass
+
+    def score(self, soup):
+        rating = soup.find('p', attrs={'class': re.compile('.*Rating.*')}).text
+        return rating.strip()
+
+    def author(self, soup):
+        return soup.find('a', attrs={'class': re.compile('.*byline__name-link.*')}).get_text()
+
+    def abstract(self, soup):
+        return soup.find('div', attrs={'class': re.compile('.*SplitScreenContentHeaderDekDown.*')}).get_text()
+
+    def editorial(self, soup):
+        editorials = soup.find_all(class_='body__inner-container')
+        text = ''
+        for editorial in editorials:
+            for el in editorial:
+                if el.name == 'p':
+                    text += el.text + '\n\n'
+                elif el.name == 'hr':
+                    return text
+                else:
+                    pass
+        return text
+
+    def bnm(self, soup):
+        return soup.find('p', attrs={'class': re.compile('.*BestNewMusic.*')}) != None

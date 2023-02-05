@@ -1,9 +1,10 @@
 html {
   font-family: Quicksand;
+  color: #194219;
 }
 
 body {
-  background-color: #fcfae7;
+  background-color: #f8fff8;
   margin: 0;
 }
 
@@ -62,14 +63,14 @@ a {
   padding-bottom: 2.5px;
   text-decoration: none;
   font-size:30px;
-  color: #7fc97f;
+  color: 194219;
   transition: 0.3s;
 }
 
 .sethtunesNav a:hover {
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #7fc97f;
-  color: white;
+  color: #f8fff8;
 }
 
 .sethtunesBody { 
@@ -99,14 +100,10 @@ a {
 .artistDetailHeader {
   height: 120px;
   background-color: #7fc97f;
-  color: white;
+  color: #f8fff8;
   margin: 0px;
   display: flex;
-  align-items: top;
-}
-
-.aristDetailHeaderInfo {
-  padding-top: 10px;
+  align-items: center;
 }
 
 .artistDetailHeaderInfo h1 {
@@ -123,17 +120,72 @@ a {
   padding-left: 10px;
 }
 
+.artistDetailAlbumRow {
+  height: 100px;
+  display: flex;
+  border-top: solid;
+  margin: 0px;
+  padding: 0px;
+  border-color: #7fc97f;
+}
+
+.artistDetailAlbumRow:nth-child(1) {
+  border-top: none;
+}
+
+.artistDetailAlbumRow a {
+  display: flex;
+  color: inherit;
+}
+
+.artistDetailAlbumRow img {
+  height: 100px;
+  width: 100px;
+  float: left;
+  padding: 10px;
+}
+
+.artistDetailAlbumInfo {
+  align-self: center;
+}
+
+.artistDetailAlbumInfo h1 {
+  font-weight: normal;
+  font-size: 25px;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.artistDetailAlbumInfo h3 {
+  font-weight: normal;
+  font-size: 15px;
+  margin: 0px;
+}
+
 .albumDetailContainer {
   margin: 8px;
+}
+
+.contentSelect button {
+  font-family: Quicksand;
+  font-size: 15px;
+  border: none;
+  background-color: #f8fff8;
+  color: #194219;
 }
 
 .albumDetailHeader {
   height: 120px;
   background-color: #7fc97f;
-  color: white;
+  color: #f8fff8;
   margin: 0px;
   display: flex;
-  align-items: top;
+  align-items: center;
 }
 
 .albumDetailHeader img {
@@ -141,12 +193,8 @@ a {
   padding: 10;
 }
 
-.albumDetailHeaderInfo {
-  padding-top: 10px;
-}
-
 .albumDetailHeaderInfo a {
-  color: white;
+  color: #f8fff8;
 }
 
 .albumDetailheaderInfo a:hover {
@@ -157,6 +205,12 @@ a {
   font-size: 30px;
   font-weight: normal;
   margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .albumDetailheaderInfo h3 {
@@ -166,28 +220,64 @@ a {
 }
 
 .albumDetailSongRow {
-  color: #7fc97f;
+  color: #194219;
   height: 80px;
   padding-top: 10px;
   padding-left: 10px;
   border-top: solid;
+  border-color: #7fc97f;
 }
 
+.ablumDetailSongRow:nth-child(1) {
+  border-top: none;
+}
 
 .albumDetailSongRow a {
-  color: #7fc97f;
+  color: #194219;
 }
 
 .albumDetailSongRow h1 {
   font-weight: normal;
   font-size: 25px;
   margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .albumDetailSongRow h3 {
   font-weight: normal;
   font-size: 15px;
   margin: 0px;
+}
+
+.pitchforkReview {
+  margin: 15px;
+}
+
+.pitchforkReview a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.pitchforkReview a:hover {
+  text-decoration: underline;
+}
+
+.pitchforkReview h1 {
+  font-size: 22px;
+}
+
+.pitchforkReview .abstract {
+  font-weight: 600;
+}
+
+.pitchforkReview p {
+  text-indent: 50px;
+  font-size: 17px;
 }
 
 .songDetailContainer {
@@ -201,10 +291,10 @@ a {
 .songDetailHeader {
   height: 120px;
   background-color: #7fc97f;
-  color: white;
+  color: #f8fff8;
   margin: 0px;
   display: flex;
-  align-items: top;
+  align-items: center;
 }
 
 .songDetailHeader img {
@@ -212,12 +302,8 @@ a {
   padding: 10;
 }
 
-.songDetailHeaderInfo {
-  padding-top: 10px;
-}
-
 .songDetailHeaderInfo a {
-  color: white;
+  color: inherit;
 }
 
 .songDetailHeaderInfo a:hover {
@@ -245,7 +331,7 @@ a {
 .text_shadows {
   text-shadow: 3px 3px 0 var(--color-secondary), 6px 6px 0 var(--color-tertiary),
     9px 9px var(--color-quaternary), 12px 12px 0 var(--color-quinary);
-  font-family: bungee, sans-serif;
+  font-family: Passion One;
   font-weight: 400;
   text-transform: uppercase;
   font-size: calc(2rem + 5vw);

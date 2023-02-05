@@ -1,6 +1,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static '/sethtunes/style.css' %}">
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Passion+One">
 
 <!DOCTYPE html>
 <html>
@@ -12,9 +13,9 @@
         </div>
     </div>
     <div class="sethtunesNav">
-        <a href = "/">home</a>
         <a href = "playlists/">playlists</a>
         <a href = "new-music/">new music</a>
+        <a href = "/">main site</a>
     </div>
     <div class ="sethtunesBody">
         {% if song %}
@@ -26,7 +27,9 @@
                     <h3><a href="{% url 'sethtunes:artist_detail' song.artist.id %}">{{ song.artist_name }}</a> | <a href="{% url 'sethtunes:album_detail' song.album.id %}">{{ song.album_name }}</a> | {{ song.genre }} | {{ song.release_date|date:'m/d/Y' }}</h3>
                 </div>
             </div>
-            <iframe width="640" height="360" src="https://www.youtube.com/embed/g7Z7yXoIIJ0" title="Rostam - "Half-Light" ft. Kelly Zutrau of 'Wet' [Lyric Video]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            {% if am_embed %}
+            <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="width:100%;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="{{ am_embed.embed_url }}"></iframe>
+            {% endif %}
         </div>
         {% endif %}
     </div>
