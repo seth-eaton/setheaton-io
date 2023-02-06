@@ -48,7 +48,43 @@ a {
   margin: 0; 
   grid-area: sethtunesTit;
   padding-left:25px;
-  width: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchBar {
+  align-self: flex-end;
+}
+
+.searchBar form {
+  padding-right: 33px;
+}
+
+.searchBar form input[type=text] {
+  border: none;
+  background-color: #f8fff8;
+  color: #194219;
+  font-size: 25px;
+  font-family: Quicksand;
+  width: 300px;
+  text-align: right;
+}
+
+.searchBar form input[type=text]:focus {
+  outline: none;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #7fc97f;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #7fc97f;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #7fc97f;
 }
 
 .sethtunesNav { 
@@ -63,7 +99,7 @@ a {
   padding-bottom: 2.5px;
   text-decoration: none;
   font-size:30px;
-  color: 194219;
+  color: #194219;
   transition: 0.3s;
 }
 
@@ -81,16 +117,18 @@ a {
 
 .albumArtworkContainer {
   margin: 8px;
+  font-size: 0px;
 }
 
 .thumbnail {
-  height: 80px;
-  width: 80px;
+  height: 90px;
+  width: 90px;
   padding: 5px;
+  display: inline-block;
 }
 
 .thumbnail:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .aristDetailContainer {
@@ -322,10 +360,59 @@ a {
   margin: 0px;
 }
 
+.searchContainer a {
+  color: inherit;
+}
+
+.searchImageResultsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.searchImageResult {
+  width: 200px;
+  height: 170px;
+}
+
+.searchImageResult img {
+  height: 100px;
+  width: 100px;
+  margin: 0 50 0 50;
+}
+
+.searchImageResult h1 {
+  font-size: 15px;
+  font-weight: normal;
+  width: 200px;
+  text-align: center;
+  margin: 3px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.searchImageResult h3 {
+  font-size: 13px;
+  font-weight: normal;
+  width: 200px;
+  text-align: center;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .content {
   display: flex;
   align-content: left;
   justify-content: left;
+  padding-right: 30px;
 }
 
 .text_shadows {
