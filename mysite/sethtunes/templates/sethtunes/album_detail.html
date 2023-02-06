@@ -12,6 +12,12 @@
         <div class="content">
             <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
         </div>
+        <div class="searchBar"> 
+            <form action="/sethtunes/search" method="post">
+                {% csrf_token %}
+                <input name="search" type="text" placeholder="search">
+            </form>
+        </div>
     </div>
     <div class="sethtunesNav">
         <a href = "playlists/">playlists</a>

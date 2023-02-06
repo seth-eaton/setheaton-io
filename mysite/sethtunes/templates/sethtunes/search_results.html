@@ -1,0 +1,72 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'sethtunes/style.css' %}">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Passion+One">
+
+<!DOCTYPE html>
+<html>
+<body>
+<div class="container">
+    <div class="sethtunesTit">
+        <div class="content">
+            <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
+        </div>
+        <div class="searchBar">
+            <form action="/sethtunes/search" method="post">
+                {% csrf_token %}
+                <input name="search" type="text" placeholder="search">
+            </form>
+        </div>
+    </div>
+    <div class="sethtunesNav">
+        <a href = "playlists/">playlists</a>
+        <a href = "new-music/">new music</a>
+        <a href = "/">main site</a>
+    </div>
+    <div class="sethtunesBody">
+        <div class="searchContainer">
+            {% if results.artists %}
+            <h1>artists</h1>
+            {% for artist in results.artists %}
+            <a href="{% url 'sethtunes:artist_detail' artist.id %}"><p>{{ artist.artist_name }}</p></a>
+            {% endfor %}
+            {% endif %}
+            {% if results.albums %}
+            <h1>albums</h1>
+            <div class="searchImageResultsContainer">
+            {% for album in results.albums %}
+            <a href="{% url 'sethtunes:album_detail' album.id %}">
+                <div class="searchImageResult">
+                    <img src="{{ album.artwork_url }}">
+                    <h1>{{ album.album_name }}</h1>
+                    <h3>{{ album.artist_name }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+            </div>
+            {% endif %}
+            {% if results.songs %}
+            <h1>songs</h1>
+            <div class="searchImageResultsContainer">
+            {% for song in results.songs %}
+            <a href="{% url 'sethtunes:song_detail' song.id %}">
+                <div class="searchImageResult">
+                    <img src="{{ song.artwork_url }}">
+                    <h1>{{ song.song_name }}</h1>
+                    <h3>{{ song.artist_name }}</h3>
+                </div>
+            </a>
+            {% endfor %}
+            </div>
+            {% endif %}
+            {% if results.reviews %}
+            <h1>reviews</h1>
+            {% for review in results.reviews %}
+            <a href="{% url 'sethtunes:album_detail' review.album.id %}"><p>Pitchfork | {{ review.artist_name }}, {{ review.album_name }} | {{ review.author }}</p></a>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

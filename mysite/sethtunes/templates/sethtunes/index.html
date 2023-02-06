@@ -5,23 +5,30 @@
 
 <!DOCTYPE html>
 <html>
-<body>
+<body onload="showDynamicThumbnails()" onresize="showDynamicThumbnails()">
+<script src="{% static 'sethtunes/index.js' %}"></script>
 <div class="container">
   <div class="sethtunesTit">
     <div class="content">
      <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
     </div>
+    <div class="searchBar">
+        <form action="/sethtunes/search" method="post">
+            {% csrf_token %}
+            <input name="search" type="text" placeholder="search">
+        </form>
+    </div>
   </div>
-  <div class="sethtunesNav">
+  <div class="sethtunesNav"> 
     <a href = "playlists/">playlists</a>
     <a href = "new-music/">new music</a>
     <a href = "/">main site</a>
   </div>
-  <div class = "sethtunesBody">
-      <div class = 'albumArtworkContainer'>
+  <div class="sethtunesBody">
+      <div class='albumArtworkContainer' id="thumbnails">
         {% if album_list %}
         {% for album in album_list %}
-        <a href = "{% url 'sethtunes:album_detail' album.id %}"><img src="{{ album.artwork_url }}", class="thumbnail"></a>
+        <a href="{% url 'sethtunes:album_detail' album.id %}"><img src="{{ album.artwork_url }}", class="thumbnail"></a>
         {% endfor %}
         {% endif %}
       </div>

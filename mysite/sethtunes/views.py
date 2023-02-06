@@ -1,15 +1,13 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
-from .models import Artist, Album, Song
-import random
-
-youtube_auth_key = 'AIzaSyD3772rMfXjWFi0EUdYtUEcj_0mI8vNEOk'
+from .models import Artist, Album, Song, PFReview, Embed
+from .search import search
 
 # Create your views here.
 
 def index(request):
-    album_list = Album.objects.filter(album_type='Album').order_by('?')[:400]
+    album_list = Album.objects.filter(album_type='Album').order_by('?')[:600]
     context = {'album_list': album_list}
     return render(request, 'sethtunes/index.html', context)
 
@@ -41,3 +39,10 @@ def song_detail(request, song_id):
     except:
         am_embed = None
     return render(request, 'sethtunes/song_detail.html', {'song':song, 'am_embed': am_embed})
+
+def search_results(request):
+    results = None
+    if 'search' in request.POST:
+        search_term = request.POST['search']
+        results = search(search_term)
+    return render(request, 'sethtunes/search_results.html', {'results':results})

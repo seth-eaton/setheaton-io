@@ -25,6 +25,7 @@ class Album(models.Model):
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
     album_type = models.CharField(default='Album', max_length=100)
+    explicit = models.CharField(null=True, blank=True, max_length=100)
 
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
@@ -38,7 +39,7 @@ class Song(models.Model):
     track_time = models.CharField(default=None, max_length=40)
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
-    explicit = models.CharField(default=None, max_length=100)
+    explicit = models.CharField(null=True, blank=True, max_length=100)
 
 class PFReview(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
