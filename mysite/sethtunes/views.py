@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.db.models import Q
+from django.utils import timezone
 from .models import Artist, Album, Song, PFReview, Embed
 from .search import search
 
@@ -14,11 +15,11 @@ def index(request):
 def artist_detail(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
     if artist:
-        albums = artist.album_set.filter(album_type='Album').order_by('-release_date').values()
-        eps = artist.album_set.filter(album_type='EP').order_by('-release_date').values()
+        albums = artist.album_set.filter(album_type='Album').order_by('-release_date')
+        eps = artist.album_set.filter(album_type='EP').order_by('-release_date')
         singles_query = Q(album_type='Single')
         singles_query.add(Q(album_type='Remixes'), Q.OR)
-        singles = artist.album_set.filter(singles_query).order_by('-release_date').values()
+        singles = artist.album_set.filter(singles_query).order_by('-release_date')
     return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles})
 
 def album_detail(request, album_id):
@@ -46,3 +47,7 @@ def search_results(request):
         search_term = request.POST['search']
         results = search(search_term)
     return render(request, 'sethtunes/search_results.html', {'results':results})
+
+def new_music(request):
+    albums = Album.objects.filter(release_date__lte=timezone.now()).order_by('-release_date')[:25]
+    return render(request, 'sethtunes/new_music.html', {'albums':albums})

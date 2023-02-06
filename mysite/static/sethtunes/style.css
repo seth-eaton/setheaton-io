@@ -151,7 +151,7 @@ a {
   padding-left: 10px;
 }
 
-.artistDetailheaderInfo h3 {
+.artistDetailHeaderInfo h3 {
   font-size: 15px;
   font-weight: normal;
   margin: 0px;
@@ -406,6 +406,56 @@ a {
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.newAlbumsContainer {
+}
+
+.newAlbumRow {
+  height: 100px;
+  display: flex;
+  border-top: solid;
+  margin: 0px;
+  padding: 0px;
+  border-color: #7fc97f;
+}
+
+.newAlbumRow:nth-child(1) {
+  border-top: none;
+}
+
+.newAlbumRow a {
+  display: flex;
+  color: inherit;
+}
+
+.newAlbumRow img {
+  height: 100px;
+  width: 100px;
+  float: left;
+  padding: 10px;
+}
+
+.newAlbumInfo {
+  align-self: center;
+}
+
+.newAlbumInfo h1 {
+  font-weight: normal;
+  font-size: 25px;
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.newAlbumInfo h3 {
+  font-weight: normal;
+  font-size: 15px;
+  margin: 0px;
 }
 
 .content {

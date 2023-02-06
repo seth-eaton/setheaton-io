@@ -8,4 +8,5 @@ urlpatterns = [
     path('album/<int:album_id>/', views.album_detail, name='album_detail'),
     path('song/<int:song_id>/', views.song_detail, name='song_detail'),
     path('search', views.search_results, name='search_results'),
+    path('new-music', views.new_music, name='new_music'),
 ]
