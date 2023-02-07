@@ -31,7 +31,9 @@ class Command(BaseCommand):
                             artist_names.append(line.strip())
             except:
                 raise CommandError('Could not open file %s' % filename)
-        
+
+        artist_names = set(artist_names)
+
         artist_results = []
         for artist_name in artist_names:
             if (artist_result := self.find_artist(artist_name)):
