@@ -458,6 +458,16 @@ a {
   margin: 0px;
 }
 
+.aboutContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.aboutContainer h1 {
+  padding-top: 150px;
+}
+
 .content {
   display: flex;
   align-content: left;
