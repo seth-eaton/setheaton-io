@@ -24,6 +24,7 @@ def artist_detail(request, artist_id):
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
+    view = request.GET.get('view')
     songs = album.song_set.all()
     if len(album.pfreview_set.all()) > 0:
         pfreview = album.pfreview_set.all()[0]
@@ -31,7 +32,11 @@ def album_detail(request, album_id):
     else:
         pfreview = False
         pfeditorial = False
-    return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial})
+    if pfreview and view == "pitchfork":
+        pass
+    else:
+        view = "songs"
+    return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial, 'view':view})
 
 def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)

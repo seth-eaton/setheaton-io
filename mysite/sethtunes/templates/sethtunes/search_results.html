@@ -63,7 +63,7 @@
             {% if results.reviews %}
             <h1>reviews</h1>
             {% for review in results.reviews %}
-            <a href="{% url 'sethtunes:album_detail' review.album.id %}"><p>Pitchfork | {{ review.artist_name }}, {{ review.album_name }} | {{ review.author }}</p></a>
+            <a href="{% url 'sethtunes:album_detail' review.album.id %}?view=pitchfork"><p>Pitchfork | {{ review.artist_name }}, {{ review.album_name }} | {{ review.author }}</p></a>
             {% endfor %}
             {% endif %}
         </div>

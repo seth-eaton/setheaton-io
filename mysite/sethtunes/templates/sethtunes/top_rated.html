@@ -32,7 +32,7 @@
 	    </div>
             {% for review in reviews %}
             <div class = 'reviewRow'>
-                <a href = "{% url 'sethtunes:album_detail' review.album.id %}">
+                <a href = "{% url 'sethtunes:album_detail' review.album.id %}?view=pitchfork">
                 <img src = "{{ review.album.artwork_url }}">
                 <div class = "reviewInfo">
 		    <h1>{{ review.score }} | {{ review.artist_name }}: {{ review.album_name }}</h1>
