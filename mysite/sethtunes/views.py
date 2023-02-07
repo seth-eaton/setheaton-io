@@ -8,7 +8,7 @@ from .search import search
 # Create your views here.
 
 def index(request):
-    album_list = Album.objects.filter(album_type='Album').order_by('?')[:600]
+    album_list = Album.objects.filter(album_type='Album').order_by('?')[:400]
     context = {'album_list': album_list}
     return render(request, 'sethtunes/index.html', context)
 
