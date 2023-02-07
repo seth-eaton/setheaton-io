@@ -1,9 +1,11 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone 
-from sethtunes.models import Artist, Album, Song, PFReview
+from sethtunes.models import Artist, Album, Song, PFReview, Embed
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, quote
 from urllib.request import urlopen, Request
+from decouple import config
+import applemusicpy
 import datetime
 import requests
 import json
@@ -38,6 +40,12 @@ class Command(BaseCommand):
             else:
                 self.stdout.write(self.style.NOTICE('Could not find %s' % artist_name))
 
+        with open('sethtunes_am_key.p8', 'r') as keyfile:
+            am_key=keyfile.read()
+        key_id = 'GD782N8452'
+        team_id = '9MKV6UY77P'
+        am = applemusicpy.AppleMusic(am_key, key_id, team_id)
+
         artists = []
         for artist_result in artist_results:
             try:
@@ -58,13 +66,38 @@ class Command(BaseCommand):
                                 pass
                             for j in range(1, len(song_results)):
                                 if (song := self.add_song(album, artist, song_results[j])):
-                                    pass
+                                    try:
+                                        song_dict = am.song(song.itunes_id, storefront='us', l=None, include=None)
+                                        url = song_dict['data'][0]['attributes']['url']
+                                        url = url[url.index('/us'):]
+                                        embed_url = urljoin('https://embed.music.apple.com/', url)
+                                        song.embed_set.create(song=song, embed_url=embed_url, embed_type='apple music')
+                                    except:
+                                        self.stdout.write(self.style.NOTICE('Could not find embed link for %s' % song.song_name))
                         except:
                             self.stdout.write(self.style.NOTICE('Error adding album'))
                     else:
                         self.stdout.write(self.style.NOTICE('Could not find songs for %s' % album_results[i]['collectionName']))
             else:
                 self.stdout.write(self.style.NOTICE('Could not find albums for %s' % artist.artist_name))
+
+        for album in Album.objects.all():
+            if album.song_set.filter(explicit='explicit').count() > 0:
+                album.explicit='explicit'
+                album.save()
+            elif album.song_set.filter(explicit='cleaned').count() > 0:
+                album.explicit='cleaned'
+                album.save()
+                self.stdout.write(self.style.NOTICE('Found clean version of %s' % album.album_name))
+            else:
+                album.explicit='notExplicit'
+                album.save()
+        Album.objects.all().filter(explicit='cleaned').delete()
+
+        for row in Album.objects.all().reverse():
+            if Album.objects.filter(album_name=row.album_name).filter(artist_name=row.artist_name).count() > 1:
+                self.stdout.write(self.style.NOTICE('Deleting duplicate of %s' % row.album_name))
+                row.delete()
 
         albums = Album.objects.all()
         for album in albums:
