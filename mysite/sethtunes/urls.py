@@ -9,4 +9,5 @@ urlpatterns = [
     path('song/<int:song_id>/', views.song_detail, name='song_detail'),
     path('search', views.search_results, name='search_results'),
     path('new-music', views.new_music, name='new_music'),
+    path('about', views.about, name='about'),
 ]

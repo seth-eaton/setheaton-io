@@ -51,3 +51,6 @@ def search_results(request):
 def new_music(request):
     albums = Album.objects.filter(release_date__lte=timezone.now()).order_by('-release_date')[:25]
     return render(request, 'sethtunes/new_music.html', {'albums':albums})
+
+def about(request):
+    return render(request, 'sethtunes/about.html')

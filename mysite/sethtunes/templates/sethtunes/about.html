@@ -5,8 +5,7 @@
 
 <!DOCTYPE html>
 <html>
-<body onload="showDynamicThumbnails()" onresize="showDynamicThumbnails()">
-<script src="{% static 'sethtunes/index.js' %}"></script>
+<body>
 <div class="container">
   <div class="sethtunesTit">
     <div class="content">
@@ -25,13 +24,9 @@
     <a href = "/">main site</a>
   </div>
   <div class="sethtunesBody">
-      <div class='albumArtworkContainer' id="thumbnails">
-        {% if album_list %}
-        {% for album in album_list %}
-        <a href="{% url 'sethtunes:album_detail' album.id %}"><img src="{{ album.artwork_url }}", class="thumbnail"></a>
-        {% endfor %}
-        {% endif %}
-      </div>
+    <div class='aboutContainer'>
+        <h1>Coming Soon</h1>    
+    </div>
   </div>
 </div>
 </body>
