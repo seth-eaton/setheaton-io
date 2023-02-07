@@ -1,7 +1,17 @@
+function show() {
+    var albums = document.getElementById("albums");
+    var eps = document.getElementById("eps");
+    var singles = document.getElementById("singles");
+
+    if (albums !== null) { show_albums(); }
+    else if (eps !== null) { show_eps(); }
+    else if (singles !== null) { show_singles(); }
+}
+
 function show_albums() {
-    var albums = document.getElementById("albums")
-    var eps = document.getElementById("eps")
-    var singles = document.getElementById("singles")
+    var albums = document.getElementById("albums");
+    var eps = document.getElementById("eps");
+    var singles = document.getElementById("singles");
     
     if (albums !== null) { albums.style.display = "block"; }
     if (eps !== null) { eps.style.display = "none"; }
@@ -9,9 +19,9 @@ function show_albums() {
 }
 
 function show_eps() {
-    var albums = document.getElementById("albums")
-    var eps = document.getElementById("eps")
-    var singles = document.getElementById("singles")
+    var albums = document.getElementById("albums");
+    var eps = document.getElementById("eps");
+    var singles = document.getElementById("singles");
         
     if (albums !== null) { albums.style.display = "none"; }
     if (eps !== null) { eps.style.display = "block"; }
@@ -19,9 +29,9 @@ function show_eps() {
 }
 
 function show_singles() {
-    var albums = document.getElementById("albums")
-    var eps = document.getElementById("eps")
-    var singles = document.getElementById("singles")
+    var albums = document.getElementById("albums");
+    var eps = document.getElementById("eps");
+    var singles = document.getElementById("singles");
         
     if (albums !== null) { albums.style.display = "none"; }
     if (eps !== null) { eps.style.display = "none"; }
