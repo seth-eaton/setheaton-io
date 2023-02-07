@@ -52,6 +52,9 @@ class PFReview(models.Model):
     editorial = models.CharField(default=None, max_length = 25000)
     bnm = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.artist_name + ': ' + self.album_name
+
 class Embed(models.Model):
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     embed_url = models.CharField(max_length=300)

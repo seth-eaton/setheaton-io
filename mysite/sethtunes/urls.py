@@ -10,4 +10,5 @@ urlpatterns = [
     path('search', views.search_results, name='search_results'),
     path('new-music', views.new_music, name='new_music'),
     path('about', views.about, name='about'),
+    path('top-rated', views.top_rated, name='top_rated'),
 ]

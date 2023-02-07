@@ -51,15 +51,19 @@ def search_results(request):
 def new_music(request):
     albums_raw = Album.objects.filter(release_date__lte=timezone.now()).order_by('-release_date')
     albums = []
-    for album_raw in albums_raw[:100]:
+    for album_raw in albums_raw[:300]:
         append = True
         for album in albums:
             if album.album_name == album_raw.album_name:
                 append = False
         if append:
             albums.append(album_raw)
-    albums = albums[:25]
+    albums = albums[:100]
     return render(request, 'sethtunes/new_music.html', {'albums':albums})
+
+def top_rated(request):
+    reviews = PFReview.objects.order_by('-score')[:200]
+    return render(request, 'sethtunes/top_rated.html', {'reviews':reviews})
 
 def about(request):
     return render(request, 'sethtunes/about.html')

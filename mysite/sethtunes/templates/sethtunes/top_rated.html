@@ -21,19 +21,22 @@
     <div class="sethtunesNav">
         <a href = "/sethtunes/about">about</a>
         <a href = "/sethtunes/new-music">new music</a>
-	<a href = "/sethtunes/top-rated">top albums</a>
+        <a href = "/sethtunes/top-rated">top albums</a>
         <a href = "/">main site</a>
     </div>
     <div class = "sethtunesBody">
-        {% if albums %}
-        <div class = 'newAlbumsContainer'>
-            {% for album in albums %}
-            <div class = 'newAlbumRow'>
-                <a href = "{% url 'sethtunes:album_detail' album.id %}">
-                <img src = "{{ album.artwork_url }}">
-                <div class = "newAlbumInfo">
-                    <h1>{{ album.album_name }}</h1>
-                    <h3>{{ album.artist_name }} | {{album.release_date|date:'m/d/Y' }}</h3>
+        {% if reviews %}
+        <div class = 'reviewsContainer'>
+	    <div class = 'reviewsHeader'>
+	        <h1>...at least according to Pitchfork...</h1>
+	    </div>
+            {% for review in reviews %}
+            <div class = 'reviewRow'>
+                <a href = "{% url 'sethtunes:album_detail' review.album.id %}">
+                <img src = "{{ review.album.artwork_url }}">
+                <div class = "reviewInfo">
+		    <h1>{{ review.score }} | {{ review.artist_name }}: {{ review.album_name }}</h1>
+                    <h3>{{ review.author }}</h3>
                 </div>
                 </a>
             </div>
