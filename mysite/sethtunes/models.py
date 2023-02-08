@@ -63,3 +63,7 @@ class Embed(models.Model):
     embed_url = models.CharField(max_length=300)
     embed_type = models.CharField(max_length=100)
 
+class WikiBlurb(models.Model):
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    url = models.CharField(max_length=200)
+    summary = models.CharField(max_length=10000)
