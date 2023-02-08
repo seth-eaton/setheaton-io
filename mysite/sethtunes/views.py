@@ -20,7 +20,10 @@ def artist_detail(request, artist_id):
         singles_query = Q(album_type='Single')
         singles_query.add(Q(album_type='Remixes'), Q.OR)
         singles = artist.album_set.filter(singles_query).order_by('-release_date')
-    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles})
+        if len(artist.wikiblurb_set.all()) > 0:
+            wikiblurb = artist.wikiblurb_set.all()[0]
+            summary = wikiblurb.summary.split('\n')
+    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles, 'wikiblurb':wikiblurb, 'summary':summary})
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)

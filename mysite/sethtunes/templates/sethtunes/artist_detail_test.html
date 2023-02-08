@@ -38,6 +38,9 @@
                 {% if singles %}
                 <button onclick="show_singles()">Singles</button>
                 {% endif %}
+                {% if wikiblurb %}
+                <button onclick="show_wiki()">Wikipedia</button>
+                {% endif %}
             </span>
             <div class = 'artistDetailHeader'>
                 <div class = 'artistDetailHeaderInfo'>
@@ -87,6 +90,13 @@
                     </div>
                     </a>
                 </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% if wikiblurb %}
+            <div class = "wikiBlurb" id = "wikiBlurb">
+                {% for paragraph in summary %}
+                <p>{{ paragraph }}</p>
                 {% endfor %}
             </div>
             {% endif %}

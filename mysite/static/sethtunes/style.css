@@ -205,6 +205,23 @@ a {
   margin: 0px;
 }
 
+.wikiBlurb {
+  margin: 15px;
+}
+
+.wikiBlurb p {
+  text-indent: 50px;
+  font-size: 17px;
+}
+
+.wikiBlurb a {
+  color: inherit;
+}
+
+.wikiBlurb a:hover {
+  text-decoration: underline;
+}
+
 .albumDetailContainer {
   margin: 8px;
 }
