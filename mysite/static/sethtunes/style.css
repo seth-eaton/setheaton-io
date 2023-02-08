@@ -465,13 +465,20 @@ a {
 
 .aboutContainer {
   width: 100%;
-  display: flex;
-  justify-content: center;
   margin: 8px;
 }
 
-.aboutContainer h1 {
-  padding-top: 150px;
+.aboutContainer p {
+  text-indent: 50px;
+}
+
+.aboutContainer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.aboutContainer a:hover{
+  text-decoration: none;
 }
 
 .reviewsContainer {

@@ -27,6 +27,9 @@ class Album(models.Model):
     album_type = models.CharField(default='Album', max_length=100)
     explicit = models.CharField(null=True, blank=True, max_length=100)
 
+    def __str__(self):
+        return self.album_name
+
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)

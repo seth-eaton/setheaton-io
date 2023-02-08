@@ -18,8 +18,8 @@ class PFReviewAdmin(admin.ModelAdmin):
 class EmbedAdmin(admin.ModelAdmin):
     search_fields = ['song_name']
 
-admin.site.register(Artist)
-admin.site.register(Album)
-admin.site.register(Song)
+admin.site.register(Artist, ArtistAdmin)
+admin.site.register(Album, AlbumAdmin)
+admin.site.register(Song, SongAdmin)
 admin.site.register(PFReview, PFReviewAdmin)
-admin.site.register(Embed)
+admin.site.register(Embed, EmbedAdmin)
