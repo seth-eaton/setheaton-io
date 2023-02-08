@@ -67,7 +67,7 @@ def new_music(request):
     return render(request, 'sethtunes/new_music.html', {'albums':albums})
 
 def top_rated(request):
-    reviews = PFReview.objects.order_by('-score')[:200]
+    reviews = PFReview.objects.filter(score__gte=8.5).order_by('-score')
     return render(request, 'sethtunes/top_rated.html', {'reviews':reviews})
 
 def about(request):
