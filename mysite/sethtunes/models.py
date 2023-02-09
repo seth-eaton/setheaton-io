@@ -15,6 +15,9 @@ class Artist(models.Model):
     artwork_url = models.CharField(null=True, default=None, max_length=300)
     updated_date = models.DateTimeField(null=True, default=None)
 
+    def __str__(self):
+        return self.artist_name
+
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     album_name = models.CharField(max_length=1000)
@@ -27,7 +30,7 @@ class Album(models.Model):
     is_single = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.album_name
+        return self.artist_name + ': ' + self.album_name
 
 class Song(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
@@ -41,6 +44,9 @@ class Song(models.Model):
     track_time = models.CharField(default=None, max_length=40)
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
+        
+    def __str__(self):
+        return self.artist_name + ': ' + self.song_name
 
 class PFReview(models.Model):
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
@@ -48,8 +54,8 @@ class PFReview(models.Model):
     artist_name = models.CharField(max_length=500)
     url = models.CharField(max_length=200)
     score = models.DecimalField(default=0.0, max_digits=3, decimal_places=1)
-    author = models.CharField(default=None, max_length=500)
-    abstract = models.CharField(default=None, max_length=1500)
+    author = models.CharField(blank=True, max_length=500)
+    abstract = models.CharField(blank=True, max_length=1500)
     editorial = models.CharField(default=None, max_length = 25000)
     bnm = models.BooleanField(default=False)
 

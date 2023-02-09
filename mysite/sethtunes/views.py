@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.utils import timezone
 from .models import Artist, Album, Song, PFReview, Embed
 from .search import search
+from .sort import sort_albums
 
 # Create your views here.
 
@@ -15,15 +16,15 @@ def index(request):
 def artist_detail(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
     if artist:
-        albums = artist.album_set.filter(is_single=False).order_by('-release_date')
-        singles = artist.album_set.filter(is_single=True).order_by('-release_date')
+        raw_albums = artist.album_set.filter(is_single=False).order_by('-release_date')
+        sorted_albums = sort_albums(raw_albums)
         if len(artist.wikiblurb_set.all()) > 0:
             wikiblurb = artist.wikiblurb_set.all()[0]
             summary = wikiblurb.summary.split('\n')
         else:
             wikiblurb = False
             summary = False
-    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'singles':singles, 'wikiblurb':wikiblurb, 'summary':summary})
+    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'sorted_albums':sorted_albums, 'wikiblurb':wikiblurb, 'summary':summary})
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
