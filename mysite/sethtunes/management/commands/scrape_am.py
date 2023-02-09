@@ -39,6 +39,19 @@ class Command(BaseCommand):
         am = applemusicpy.AppleMusic(am_key, key_id, team_id)
 
         artist_names = set(artist_names)
+        
+        
+
+
+
+
+
+
+
+
+
+
+
         artist_results = []
         for artist_name in artist_names:
             if (artist_result := self.find_artist(artist_name)):

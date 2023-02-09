@@ -9,22 +9,22 @@ import re
 
 class Artist(models.Model):
     artist_name = models.CharField(max_length=500)
-    added_date = models.DateTimeField('date added')
+    added_date = models.DateTimeField()
     genre = models.CharField(max_length=100)
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(null=True, default=None, max_length=300)
+    updated_date = models.DateTimeField(null=True, default=None)
 
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     album_name = models.CharField(max_length=1000)
     added_date = models.DateTimeField('date added')
     artist_name = models.CharField(max_length=500)
-    release_date = models.DateTimeField('date released')
+    release_date = models.DateField('date released')
     genre = models.CharField(max_length=100)
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
-    album_type = models.CharField(default='Album', max_length=100)
-    explicit = models.CharField(null=True, blank=True, max_length=100)
+    is_single = models.BooleanField(default=False)
 
     def __str__(self):
         return self.album_name
