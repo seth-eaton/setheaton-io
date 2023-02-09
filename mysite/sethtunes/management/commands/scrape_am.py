@@ -154,11 +154,9 @@ class Command(BaseCommand):
             soup = BeautifulSoup(response_text, "lxml")
             
             if soup.find(class_='review-multi') is None:
-                matched_album = review_dict['title'][4:-5]
-                if matched_album == album_name:
-                    r = PFReview(album=album, album_name=album_name, artist_name=artist_name, url=url, score=self.score(soup), author=self.author(soup), abstract=self.abstract(soup), editorial=self.editorial(soup), bnm=self.bnm(soup))
-                    r.save()
-                    self.stdout.write(self.style.SUCCESS('Found PF review for %s' % album_name))
+                r = PFReview(album=album, album_name=album_name, artist_name=artist_name, url=url, score=self.score(soup), author=self.author(soup), abstract=self.abstract(soup), editorial=self.editorial(soup), bnm=self.bnm(soup))
+                r.save()
+                self.stdout.write(self.style.SUCCESS('Found PF review for %s' % album_name))
             else:
                 pass
         except IndexError:
