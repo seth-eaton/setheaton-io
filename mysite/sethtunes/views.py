@@ -62,7 +62,7 @@ def new_music(request):
     for album_raw in albums_raw[:300]:
         append = True
         for album in albums:
-            if album.album_name == album_raw.album_name:
+            if album.itunes_id == album_raw.itunes_id:
                 append = False
         if append:
             albums.append(album_raw)

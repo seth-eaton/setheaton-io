@@ -12,7 +12,7 @@ import json
 import re
 
 class Command(BaseCommand):
-    help = 'Scrapes iTunes for data from a list of artists from a file'
+    help = 'Scrapes apple music for data from a list of artists from a file'
 
     def add_arguments(self, parser):
         parser.add_argument('filename', nargs='+', type=str)
@@ -31,9 +31,14 @@ class Command(BaseCommand):
                             artist_names.append(line.strip())
             except:
                 raise CommandError('Could not open file %s' % filename)
+        
+        with open('sethtunes_am_key.p8', 'r') as keyfile:
+            am_key=keyfile.read()
+        key_id = config("am_key_id")
+        team_id = config("am_team_id")
+        am = applemusicpy.AppleMusic(am_key, key_id, team_id)
 
         artist_names = set(artist_names)
-
         artist_results = []
         for artist_name in artist_names:
             if (artist_result := self.find_artist(artist_name)):
@@ -41,12 +46,6 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.SUCCESS('Found %s' % artist_name))
             else:
                 self.stdout.write(self.style.NOTICE('Could not find %s' % artist_name))
-
-        with open('sethtunes_am_key.p8', 'r') as keyfile:
-            am_key=keyfile.read()
-        key_id = config("am_key_id")
-        team_id = config("am_team_id")
-        am = applemusicpy.AppleMusic(am_key, key_id, team_id)
 
         artists = []
         for artist_result in artist_results:
@@ -64,6 +63,7 @@ class Command(BaseCommand):
                             album = self.add_album(artist, album_results[i])
                             try:
                                 self.find_pf(album.artist_name, album.album_name, album)
+                                self.stdout.write(self.style.SUCCESS('Found pitchfork review for %s' % album.album_name))
                             except:
                                 pass
                             for j in range(1, len(song_results)):
