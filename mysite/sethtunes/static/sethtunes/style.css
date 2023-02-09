@@ -144,18 +144,24 @@ a {
   align-items: center;
 }
 
+.artistDetailHeader img {
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 100px;
+  width: 100px;
+}
+
 .artistDetailHeaderInfo h1 {
   font-size: 30px;
   font-weight: normal;
   margin: 0px;
-  padding-left: 10px;
 }
 
 .artistDetailHeaderInfo h3 {
   font-size: 15px;
   font-weight: normal;
   margin: 0px;
-  padding-left: 10px;
 }
 
 .artistDetailAlbumRow {
@@ -249,6 +255,10 @@ a {
   margin-right: 10px;
   height: 100px;
   width: 100px;
+}
+
+.albumDetailHeaderInfo {
+  width: 100%
 }
 
 .albumDetailHeaderInfo a {

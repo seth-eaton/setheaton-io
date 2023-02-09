@@ -11,4 +11,5 @@ urlpatterns = [
     path('new-music', views.new_music, name='new_music'),
     path('about', views.about, name='about'),
     path('top-rated', views.top_rated, name='top_rated'),
+    path('seths-picks', views.seths_picks, name='seths_picks'),
 ]

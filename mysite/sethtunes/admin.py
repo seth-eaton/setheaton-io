@@ -12,9 +12,12 @@ class ArtistAdmin(admin.ModelAdmin):
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ['album_name', 'artist_name', 'id']
+    actions = [make_approved]
+    list_filter = ('seth_app',)
 
 class SongAdmin(admin.ModelAdmin):
     search_fields = ['song_name', 'album_name', 'artist_name', 'id']
+    actions = [make_approved]
 
 class PFReviewAdmin(admin.ModelAdmin):
     search_fields = ['album_name', 'artist_name']

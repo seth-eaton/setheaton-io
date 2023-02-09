@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'sethtunes/style.css' %}">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Passion+One">
+
+<!DOCTYPE html>
+<html>
+<body onload="showDynamicPicks()" onresize="showDynamicPicks()">
+<script src="{% static 'sethtunes/seths_picks.js' %}"></script>
+<div class="container">
+  <div class="sethtunesTit">
+    <div class="content">
+     <a href='/sethtunes/'><h2 class="text_shadows">SETHTUNES</h2></a>
+    </div>
+    <div class="searchBar">
+        <form action="/sethtunes/search" method="post">
+            {% csrf_token %}
+            <input name="search" type="text" placeholder="search">
+        </form>
+    </div>
+  </div>
+  <div class="sethtunesNav"> 
+    <a href = "/sethtunes/about">about</a>
+    <a href = "/sethtunes/new-music">new music</a>
+    <a href = "/sethtunes/top-rated">top albums</a>
+    <a href = "/">main site</a>
+  </div>
+  <div class="sethtunesBody">
+      <div class='albumArtworkContainer' id="thumbnails">
+        {% if album_list %}
+        {% for album in album_list %}
+        <a href="{% url 'sethtunes:album_detail' album.id %}"><img src="{{ album.artwork_url }}", class="thumbnail"></a>
+        {% endfor %}
+        {% endif %}
+      </div>
+  </div>
+</div>
+</body>
+</html>

@@ -43,9 +43,10 @@
                 {% endif %}
             </span>
             <div class = 'artistDetailHeader'>
+		<img src = "{{ artist.artwork_url }}">
                 <div class = 'artistDetailHeaderInfo'>
                     <h1>{{ artist.artist_name }}</h1>
-                    <h3>{{ artist.genre }}</h3>
+		    <h3>{{ artist.genre }}</h3>
                 </div>
             </div>
             {% if sorted_albums.albums %}

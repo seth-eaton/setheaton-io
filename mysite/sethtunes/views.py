@@ -16,7 +16,7 @@ def index(request):
 def artist_detail(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
     if artist:
-        raw_albums = artist.album_set.filter(is_single=False).order_by('-release_date')
+        raw_albums = artist.album_set.order_by('-release_date')
         sorted_albums = sort_albums(raw_albums)
         if len(artist.wikiblurb_set.all()) > 0:
             wikiblurb = artist.wikiblurb_set.all()[0]
@@ -76,3 +76,8 @@ def top_rated(request):
 
 def about(request):
     return render(request, 'sethtunes/about.html')
+
+def seths_picks(request):
+    album_list = Album.objects.filter(seth_app=True).order_by('?')
+    context = {'album_list': album_list}
+    return render(request, 'sethtunes/seths_picks.html', context)

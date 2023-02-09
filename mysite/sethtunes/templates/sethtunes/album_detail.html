@@ -63,8 +63,10 @@
                     <h1>{{ pfreview.score }} | {{ pfreview.author }}</h1>
                 {% endif %}
                 </a>
+		{% if pfreview.abstract %}
                 <p class = "abstract">{{ pfreview.abstract }}</p>
-                {% for paragraph in pfeditorial %}
+		{% endif %}
+		{% for paragraph in pfeditorial %}
                 <p>{{ paragraph }}</p>
                 {% endfor %}
             </div>
