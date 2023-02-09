@@ -245,6 +245,8 @@ a {
 
 .albumDetailHeader img {
   float: left;
+  margin-left: 10px;
+  margin-right: 10px;
   height: 100px;
   width: 100px;
 }
@@ -355,6 +357,8 @@ a {
 
 .songDetailHeader img {
   float: left;
+  margin-left: 10px;
+  margin-right: 10px;
   height: 100px;
   width: 100px;
 }
@@ -537,6 +541,7 @@ a {
 .reviewRow a {
   display: flex;
   color: inherit;
+  width: 100%;
 }
 
 .reviewRow img {
@@ -548,6 +553,7 @@ a {
 
 .reviewInfo {
   align-self: center;
+  width: 100%;
 }
 
 .reviewInfo h1 {

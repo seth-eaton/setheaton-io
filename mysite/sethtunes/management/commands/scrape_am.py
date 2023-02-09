@@ -64,7 +64,8 @@ class Command(BaseCommand):
                                         al = ar.album_set.create(album_name=album_dict['attributes']['name'], added_date=timezone.now(), artist_name=ar.artist_name, release_date=self.release_date(album_dict['attributes']['releaseDate']), genre=album_dict['attributes']['genreNames'][0], itunes_id=album_dict['id'], artwork_url=album_dict['attributes']['artwork']['url'].format(w=300, h=300), is_single=album_dict['attributes']['isSingle'])
 
                                         try:
-                                            self.find_pf(al.artist_name, al.album_name, al)
+                                            if not al.is_single:
+                                                self.find_pf(al.artist_name, al.album_name, al)
                                         except:
                                             pass
 
