@@ -14,6 +14,7 @@ class Artist(models.Model):
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(null=True, default=None, max_length=300)
     updated_date = models.DateTimeField(null=True, default=None)
+    seth_app = models.BooleanField(null=True, default=False)
 
     def __str__(self):
         return self.artist_name
@@ -28,6 +29,7 @@ class Album(models.Model):
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
     is_single = models.BooleanField(default=False)
+    seth_app = models.BooleanField(null=True, default=False)
 
     def __str__(self):
         return self.artist_name + ': ' + self.album_name
@@ -44,6 +46,7 @@ class Song(models.Model):
     track_time = models.CharField(default=None, max_length=40)
     itunes_id = models.IntegerField(default=0)
     artwork_url = models.CharField(default=None, max_length=300)
+    seth_app = models.BooleanField(null=True, default=False)
         
     def __str__(self):
         return self.artist_name + ': ' + self.song_name

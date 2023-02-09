@@ -2,9 +2,13 @@ from django.contrib import admin
 
 from .models import Artist, Album, Song, PFReview, Embed
 
+def make_approved(modeladmin, request, queryset):
+    queryset.update(seth_app=True)
+
 # Register your models here.
 class ArtistAdmin(admin.ModelAdmin):
     search_fields = ['artist_name', 'id']
+    actions = [make_approved]
 
 class AlbumAdmin(admin.ModelAdmin):
     search_fields = ['album_name', 'artist_name', 'id']
