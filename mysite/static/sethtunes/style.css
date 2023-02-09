@@ -245,7 +245,8 @@ a {
 
 .albumDetailHeader img {
   float: left;
-  padding: 10;
+  height: 100px;
+  width: 100px;
 }
 
 .albumDetailHeaderInfo a {
@@ -354,7 +355,8 @@ a {
 
 .songDetailHeader img {
   float: left;
-  padding: 10;
+  height: 100px;
+  width: 100px;
 }
 
 .songDetailHeaderInfo a {

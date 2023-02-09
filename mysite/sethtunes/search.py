@@ -8,8 +8,8 @@ def search(search_term):
     artist_results = Artist.objects.filter(artist_name__icontains=search_term)[:12]
     results.update({'artists':artist_results})
 
-    album_results_name = list(Album.objects.filter(album_name__icontains=search_term).filter(album_type='Album'))
-    album_results_artist_raw = list(Album.objects.filter(artist_name__icontains=search_term).filter(album_type='Album').order_by('?'))
+    album_results_name = list(Album.objects.filter(album_name__icontains=search_term).filter(is_single=False))
+    album_results_artist_raw = list(Album.objects.filter(artist_name__icontains=search_term).filter(is_single=False).order_by('?'))
     album_results_artist = []
     for artist_result in album_results_artist_raw:
         add = True

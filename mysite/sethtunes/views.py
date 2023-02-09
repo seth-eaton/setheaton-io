@@ -8,22 +8,22 @@ from .search import search
 # Create your views here.
 
 def index(request):
-    album_list = Album.objects.filter(album_type='Album').order_by('?')[:400]
+    album_list = Album.objects.filter(is_single=False).order_by('?')[:400]
     context = {'album_list': album_list}
     return render(request, 'sethtunes/index.html', context)
 
 def artist_detail(request, artist_id):
     artist = get_object_or_404(Artist, pk=artist_id)
     if artist:
-        albums = artist.album_set.filter(album_type='Album').order_by('-release_date')
-        eps = artist.album_set.filter(album_type='EP').order_by('-release_date')
-        singles_query = Q(album_type='Single')
-        singles_query.add(Q(album_type='Remixes'), Q.OR)
-        singles = artist.album_set.filter(singles_query).order_by('-release_date')
+        albums = artist.album_set.filter(is_single=False).order_by('-release_date')
+        singles = artist.album_set.filter(is_single=True).order_by('-release_date')
         if len(artist.wikiblurb_set.all()) > 0:
             wikiblurb = artist.wikiblurb_set.all()[0]
             summary = wikiblurb.summary.split('\n')
-    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'eps':eps, 'singles':singles, 'wikiblurb':wikiblurb, 'summary':summary})
+        else:
+            wikiblurb = False
+            summary = False
+    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'albums':albums, 'singles':singles, 'wikiblurb':wikiblurb, 'summary':summary})
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)

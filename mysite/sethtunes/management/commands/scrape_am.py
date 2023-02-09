@@ -39,75 +39,53 @@ class Command(BaseCommand):
         am = applemusicpy.AppleMusic(am_key, key_id, team_id)
 
         artist_names = set(artist_names)
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-        artist_results = []
-        for artist_name in artist_names:
-            if (artist_result := self.find_artist(artist_name)):
-                artist_results.append(artist_result)
-                self.stdout.write(self.style.SUCCESS('Found %s' % artist_name))
-            else:
-                self.stdout.write(self.style.NOTICE('Could not find %s' % artist_name))
-
-        artists = []
-        for artist_result in artist_results:
+        for name in artist_names:
+            r = am.search(name, types=['artists'], limit=5)
             try:
-                artists.append(self.add_artist(artist_result))
-            except:
-                self.stdout.write(self.style.NOTICE('Could not add %s' % artist_result['artistName']))
+                for artist_datum in r['results']['artists']['data']:
+                    if artist_datum['attributes']['name'] == name:
+                        ar = Artist(artist_name=name, added_date=timezone.now(), genre=artist_datum['attributes']['genreNames'][0], itunes_id=artist_datum['id'], artwork_url=artist_datum['attributes']['artwork']['url'].format(w=300, h=300), updated_date=timezone.now()) 
+                        ar.save()
+                        self.stdout.write(self.style.SUCCESS('Added %s' % ar.artist_name))
 
-        for artist in artists:
-            if (album_results := self.find_albums(artist.itunes_id)):
-                self.stdout.write(self.style.SUCCESS('Adding albums for %s' % artist.artist_name))
-                for i in range(1, len(album_results)):
-                    if (song_results := self.find_songs(album_results[i]['collectionId'])):
                         try:
-                            album = self.add_album(artist, album_results[i])
-                            try:
-                                self.find_pf(album.artist_name, album.album_name, album)
-                                self.stdout.write(self.style.SUCCESS('Found pitchfork review for %s' % album.album_name))
-                            except:
-                                pass
-                            for j in range(1, len(song_results)):
-                                if (song := self.add_song(album, artist, song_results[j])):
-                                    try:
-                                        song_dict = am.song(song.itunes_id, storefront='us', l=None, include=None)
-                                        url = song_dict['data'][0]['attributes']['url']
-                                        url = url[url.index('/us'):]
-                                        embed_url = urljoin('https://embed.music.apple.com/', url)
-                                        song.embed_set.create(song=song, embed_url=embed_url, embed_type='apple music')
-                                    except:
-                                        self.stdout.write(self.style.NOTICE('Could not find embed link for %s' % song.song_name))
-                        except:
-                            self.stdout.write(self.style.NOTICE('Error adding album'))
-                    else:
-                        self.stdout.write(self.style.NOTICE('Could not find songs for %s' % album_results[i]['collectionName']))
-            else:
-                self.stdout.write(self.style.NOTICE('Could not find albums for %s' % artist.artist_name))
+                            for album_datum in artist_datum['relationships']['albums']['data']:
+                                album_result=am.album(album_datum['id'], storefront='us', l=None, include=None)
+                                album_dict=album_result['data'][0]
+                                cleaned=False
+                                try: 
+                                    if album_dict['attributes']['contentRating'] == 'clean':
+                                        cleaned=True
+                                except:
+                                    pass
 
-        for album in Album.objects.all():
-            if album.song_set.filter(explicit='explicit').count() > 0:
-                album.explicit='explicit'
-                album.save()
-            elif album.song_set.filter(explicit='cleaned').count() > 0:
-                album.explicit='cleaned'
-                album.save()
-                self.stdout.write(self.style.NOTICE('Found clean version of %s' % album.album_name))
-            else:
-                album.explicit='notExplicit'
-                album.save()
-        Album.objects.all().filter(explicit='cleaned').delete()
+                                if not cleaned:
+                                    try:
+                                        al = ar.album_set.create(album_name=album_dict['attributes']['name'], added_date=timezone.now(), artist_name=ar.artist_name, release_date=self.release_date(album_dict['attributes']['releaseDate']), genre=album_dict['attributes']['genreNames'][0], itunes_id=album_dict['id'], artwork_url=album_dict['attributes']['artwork']['url'].format(w=300, h=300), is_single=album_dict['attributes']['isSingle'])
+
+                                        try:
+                                            self.find_pf(al.artist_name, al.album_name, al)
+                                        except:
+                                            pass
+
+                                        song_list = album_dict['relationships']['tracks']['data']
+                                        for song_dict in song_list:
+                                            try:
+                                                so = al.song_set.create(artist=ar, song_name=song_dict['attributes']['name'], added_date=timezone.now(), artist_name=ar.artist_name, album_name=al.album_name, release_date=self.release_date(song_dict['attributes']['releaseDate']), genre=song_dict['attributes']['genreNames'][0], track_time=datetime.timedelta(milliseconds=song_dict['attributes']['durationInMillis']), itunes_id=song_dict['id'], artwork_url=al.artwork_url)
+                                                try:
+                                                    el = self.get_embed(song_dict['attributes']['url'])
+                                                    so.embed_set.create(embed_url=el, embed_type='apple music')
+                                                except:
+                                                    self.stdout.write(self.style.NOTICE('Could not get embed link for %s' % so.song_name))
+                                            except:
+                                                self.stdout.write(self.style.NOTICE('Could not add song'))
+                                    except:
+                                        self.stdout.write(self.style.NOTICE('Could not add album'))
+                        except:
+                            self.stdout.write(self.style.NOTICE('Could not find albums for %s' % name))
+                        break
+            except:
+                self.stdout.write(self.style.NOTICE('Could not find %s' % name))
 
         for row in Album.objects.all().reverse():
             if Album.objects.filter(album_name=row.album_name).filter(artist_name=row.artist_name).count() > 1:
@@ -126,7 +104,7 @@ class Command(BaseCommand):
             except:
                 self.stdout.write(self.style.NOTICE('Could not retrieve songs for %s' % album.album_name))
 
-        artist = Artist.objects.all()
+        artists = Artist.objects.all()
         for artist in artists:
             try:
                 albums = artist.album_set.all()
@@ -140,85 +118,8 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Done!'))
 
-
-    def find_artist(self, artist_name):
-        spaces_count = artist_name.count(' ')
-        search_term = artist_name.replace(' ', '+', spaces_count)
-       
-        try:
-            request = 'https://itunes.apple.com/search?term=' + search_term + '&etnity=song&limit=300'
-            response = requests.get(request).json()
-            results = response['results']
-        except:
-            return False
-
-        i = 0
-        while i < len(results):
-            try:
-                if results[i]['artistName'] == artist_name:
-                    try:
-                        artist_request = 'https://itunes.apple.com/lookup?id=' + str(results[i]['artistId'])
-                        artist_response = requests.get(artist_request).json()
-                        artist_result = artist_response['results'][0]
-                        return artist_result
-                    except:
-                        return False
-                else:
-                    i += 1
-            except:
-                return False
-        return False
-    
-    def add_artist(self, artist_result):
-        try:
-            a = Artist(artist_name = artist_result['artistName'], added_date = timezone.now(), genre = artist_result['primaryGenreName'], itunes_id = artist_result['artistId'], amg_id = artist_result['amgArtistId'], genre_id = artist_result['primaryGenreId'])
-            a.save()
-            return a
-        except:
-            a = Artist(artist_name = artist_result['artistName'], added_date = timezone.now(), genre = artist_result['primaryGenreName'], itunes_id = artist_result['artistId'], amg_id = 0, genre_id = artist_result['primaryGenreId'])
-            a.save()
-            self.stdout.write(self.style.NOTICE('No amg id for %s' % a.artist_name))
-            return a
-
-    def find_albums(self, artist_id):
-        request = 'https://itunes.apple.com/lookup?id=' + str(artist_id) + '&entity=album'
-        try:
-            response = requests.get(request).json()
-            return response['results']
-        except:
-            return False
-
-    def add_album(self, artist, album_result):
-        album_type = ''
-        if album_result['collectionName'].count('EP') > 0:
-            album_type = 'EP'
-        elif album_result['collectionName'].count('Single') > 0:
-            album_type = 'Single'
-        elif album_result['collectionName'].count('Remixes') > 0:
-            album_type = 'Remixes'
-        else:
-            album_type = 'Album'
-        album = artist.album_set.create(album_name = album_result['collectionName'], added_date = timezone.now(), artist_name = artist.artist_name, release_date = self.release_date(album_result['releaseDate']), genre = album_result['primaryGenreName'], itunes_id = album_result['collectionId'], artwork_url = album_result['artworkUrl100'], album_type = album_type)
-        return album
-
-    def find_songs(self, album_id):
-        request = 'https://itunes.apple.com/lookup?id=' + str(album_id) + '&entity=song'
-        try:
-            response = requests.get(request).json()
-            return response['results']
-        except:
-            return False
-
-    def add_song(self, album, artist, song_result):
-        try:
-            song = album.song_set.create(artist_id = artist.id, song_name = song_result['trackName'], added_date = timezone.now(), artist_name = artist.artist_name, album_name = album.album_name, release_date = self.release_date(song_result['releaseDate']), genre = song_result['primaryGenreName'], track_time = datetime.timedelta(milliseconds=song_result['trackTimeMillis']), itunes_id = song_result['trackId'], artwork_url = song_result['artworkUrl100'], explicit = song_result['trackExplicitness'])
-            return song
-        except:
-            return False
-            self.stdout.write(self.style.NOTICE('Could not find key for %s' % song_result['trackName']))
-
     def release_date(self, date_str):
-        date =  datetime.datetime.strptime(date_str, '%Y-%m-%dT%H:%M:%SZ')
+        date =  datetime.datetime.strptime(date_str, '%Y-%m-%d')
         date_aware = date.replace(tzinfo=datetime.timezone.utc)
         return date_aware
 
@@ -253,8 +154,11 @@ class Command(BaseCommand):
             soup = BeautifulSoup(response_text, "lxml")
             
             if soup.find(class_='review-multi') is None:
-                r = PFReview(album=album, album_name=album_name, artist_name=artist_name, url=url, score=self.score(soup), author=self.author(soup), abstract=self.abstract(soup), editorial=self.editorial(soup), bnm=self.bnm(soup))
-                r.save()
+                matched_album = review_dict['title'][4:-5]
+                if matched_album == album_name:
+                    r = PFReview(album=album, album_name=album_name, artist_name=artist_name, url=url, score=self.score(soup), author=self.author(soup), abstract=self.abstract(soup), editorial=self.editorial(soup), bnm=self.bnm(soup))
+                    r.save()
+                    self.stdout.write(self.style.SUCCESS('Found PF review for %s' % album_name))
             else:
                 pass
         except IndexError:
@@ -285,3 +189,8 @@ class Command(BaseCommand):
 
     def bnm(self, soup):
         return soup.find('p', attrs={'class': re.compile('.*BestNewMusic.*')}) != None
+
+    def get_embed(self, url):
+        url = url[url.index('/us'):]
+        embed_url = urljoin('https://embed.music.apple.com/', url)
+        return embed_url
