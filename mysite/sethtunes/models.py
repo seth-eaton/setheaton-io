@@ -12,8 +12,7 @@ class Artist(models.Model):
     added_date = models.DateTimeField('date added')
     genre = models.CharField(max_length=100)
     itunes_id = models.IntegerField(default=0)
-    amg_id = models.IntegerField(default=0)
-    genre_id = models.IntegerField(default=0)
+    artwork_url = models.CharField(null=True, default=None, max_length=300)
 
 class Album(models.Model):
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
