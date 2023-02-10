@@ -9,7 +9,7 @@ from .sort import sort_albums
 # Create your views here.
 
 def index(request):
-    album_list = Album.objects.filter(is_single=False).order_by('?')[:400]
+    album_list = Album.objects.filter(is_single=False).exclude(album_name__icontains='remix').order_by('?')[:400]
     context = {'album_list': album_list}
     return render(request, 'sethtunes/index.html', context)
 
