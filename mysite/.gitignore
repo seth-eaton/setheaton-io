@@ -2,3 +2,8 @@
 sethtunes_am_key.p8
 whole.json
 db.sqlite3
+celery.beat.log
+celerybeat-schedule.bak
+celerybeat-schedule.dat
+celerybeat-schedule.dir
+celery.log
