@@ -40,7 +40,7 @@ def update_artist():
         except:
             pass
         artist.updated_date = timezone.now()
-        artist.save(update_fields=['updated_date'])
+        artist.save()
 
     for row in Album.objects.all().reverse():
         if Album.objects.filter(album_name=row.album_name).filter(artist_name=row.artist_name).count() > 1:
