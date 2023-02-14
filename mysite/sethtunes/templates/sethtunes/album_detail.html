@@ -76,14 +76,16 @@
             {% endif %}
             {% if sethreview %}
             <div class = "sethReview" id = "sethContent">
-                {% for paragraph in sethtext %}
+		{% for paragraph in sethtext %}
                 <p>{{ paragraph }}</br></p>
                 {% endfor %}
                 <h2>Written {{ sethreview.date|date:'m/d/Y' }}</h2>
                 <h3>Favorite Songs:</h3>
                 <p>{{ sethreview.fav_songs }}</p>
-                <h3>Favorite Lyric:</h3>
+		{% if sethreview.fav_lyrc %}
+		<h3>Favorite Lyric:</h3>
                 <p>{{ sethreview.fav_lyric }}</p>
+		{% endif %}
             </div>
             {% endif %}
         </div>

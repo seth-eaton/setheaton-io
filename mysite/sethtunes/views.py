@@ -44,6 +44,8 @@ def album_detail(request, album_id):
         sethtext = False
     if pfreview and view == "pitchfork":
         pass
+    if sethreview and view == "seth":
+        pass
     else:
         view = "songs"
     return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial, 'sethreview':sethreview, 'sethtext':sethtext, 'view':view})

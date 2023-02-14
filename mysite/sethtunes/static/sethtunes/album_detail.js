@@ -1,6 +1,7 @@
 function show(view) {
     if (view === "songs") { show_song_content(); }
     else if (view === "pitchfork") { show_pf_content(); }
+    else if (view === "seth") { show_seth_content(); }
 }
 
 function show_song_content() {
