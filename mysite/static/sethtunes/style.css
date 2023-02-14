@@ -372,6 +372,22 @@ a {
   font-size: 17px;
 }
 
+.sethReview {
+  margin: 15px;
+}
+
+.sethReview h2 {
+  font-size: 12px;
+  width: 100%;
+  text-align: end;
+  margin: 0px;
+}
+
+.sethReview p {
+  text-indent: 50px;
+  font-size: 17px;
+}
+
 .songDetailContainer {
   margin: 8px;
 }

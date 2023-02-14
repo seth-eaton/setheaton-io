@@ -36,11 +36,17 @@ def album_detail(request, album_id):
     else:
         pfreview = False
         pfeditorial = False
+    if len(album.sethreview_set.all()) > 0:
+        sethreview = album.sethreview_set.all()[0]
+        sethtext = sethreview.text.split('--break--')
+    else:
+        sethreview = False
+        sethtext = False
     if pfreview and view == "pitchfork":
         pass
     else:
         view = "songs"
-    return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial, 'view':view})
+    return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial, 'sethreview':sethreview, 'sethtext':sethtext, 'view':view})
 
 def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)

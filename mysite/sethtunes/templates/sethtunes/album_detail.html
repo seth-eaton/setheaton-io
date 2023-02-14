@@ -29,12 +29,15 @@
 	    <a href = "/">main site</a>
     </div>
     <div class = "sethtunesBody">
-        {% if pfreview %}
         <span class = "contentSelect">
             <button onclick="show_song_content()">Songs</button>
+            {% if pfreview %}
             <button onclick="show_pf_content()">Pitchfork</button>
+            {% endif %}
+            {% if sethreview %}
+            <button onclick="show_seth_content()">Seth's Review</button>
+            {% endif %}
         </span>
-        {% endif %}
         {% if album %}
         <div class = 'albumDetailContainer'>
             <div class = 'albumDetailHeader'>
@@ -63,12 +66,24 @@
                     <h1>{{ pfreview.score }} | {{ pfreview.author }}</h1>
                 {% endif %}
                 </a>
-		{% if pfreview.abstract %}
+        		{% if pfreview.abstract %}
                 <p class = "abstract">{{ pfreview.abstract }}</p>
-		{% endif %}
-		{% for paragraph in pfeditorial %}
+	        	{% endif %}
+	        	{% for paragraph in pfeditorial %}
                 <p>{{ paragraph }}</p>
                 {% endfor %}
+            </div>
+            {% endif %}
+            {% if sethreview %}
+            <div class = "sethReview" id = "sethContent">
+                {% for paragraph in sethtext %}
+                <p>{{ paragraph }}</br></p>
+                {% endfor %}
+                <h2>Written {{ sethreview.date|date:'m/d/Y' }}</h2>
+                <h3>Favorite Songs:</h3>
+                <p>{{ sethreview.fav_songs }}</p>
+                <h3>Favorite Lyric:</h3>
+                <p>{{ sethreview.fav_lyric }}</p>
             </div>
             {% endif %}
         </div>

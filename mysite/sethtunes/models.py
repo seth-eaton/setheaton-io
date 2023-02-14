@@ -59,8 +59,20 @@ class PFReview(models.Model):
     score = models.DecimalField(default=0.0, max_digits=3, decimal_places=1)
     author = models.CharField(blank=True, max_length=500)
     abstract = models.CharField(blank=True, max_length=1500)
-    editorial = models.CharField(default=None, max_length = 25000)
+    editorial = models.CharField(default=None, max_length=25000)
     bnm = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.artist_name + ': ' + self.album_name
+
+class SethReview(models.Model):
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
+    album_name = models.CharField(max_length=1000)
+    artist_name = models.CharField(max_length=500)
+    text = models.TextField()
+    fav_songs = models.CharField(max_length=3000)
+    fav_lyric = models.TextField(null=True, blank=True)
+    date = models.DateTimeField()
 
     def __str__(self):
         return self.artist_name + ': ' + self.album_name
