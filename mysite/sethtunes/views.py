@@ -9,7 +9,8 @@ from .sort import sort_albums
 # Create your views here.
 
 def index(request):
-    album_list = Album.objects.filter(is_single=False).exclude(album_name__icontains='remix').order_by('?')[:400]
+    album_list = Album.objects.filter(is_single=False).exclude(
+            album_name__icontains='remix').order_by('?')[:400]
     context = {'album_list': album_list}
     return render(request, 'sethtunes/index.html', context)
 
@@ -24,7 +25,9 @@ def artist_detail(request, artist_id):
         else:
             wikiblurb = False
             summary = False
-    return render(request, 'sethtunes/artist_detail_test.html', {'artist': artist, 'sorted_albums':sorted_albums, 'wikiblurb':wikiblurb, 'summary':summary})
+    return render(request, 'sethtunes/artist_detail_test.html', 
+            {'artist': artist, 'sorted_albums':sorted_albums, 
+                'wikiblurb':wikiblurb, 'summary':summary})
 
 def album_detail(request, album_id):
     album = get_object_or_404(Album, pk=album_id)
@@ -36,7 +39,8 @@ def album_detail(request, album_id):
     else:
         pfreview = False
         pfeditorial = False
-    if len(album.sethreview_set.all()) > 0:
+    if (len(album.sethreview_set.all()) > 0 and 
+            album.sethreview_set.all()[0].visible == True):
         sethreview = album.sethreview_set.all()[0]
         sethtext = sethreview.text.split('--break--')
     else:
@@ -48,7 +52,10 @@ def album_detail(request, album_id):
         pass
     else:
         view = "songs"
-    return render(request, 'sethtunes/album_detail.html', {'album':album, 'songs':songs, 'pfreview':pfreview, 'pfeditorial':pfeditorial, 'sethreview':sethreview, 'sethtext':sethtext, 'view':view})
+    return render(request, 'sethtunes/album_detail.html', 
+            {'album':album, 'songs':songs, 'pfreview':pfreview, 
+                'pfeditorial':pfeditorial, 'sethreview':sethreview, 
+                'sethtext':sethtext, 'view':view})
 
 def song_detail(request, song_id):
     song = get_object_or_404(Song, pk=song_id)
@@ -56,7 +63,8 @@ def song_detail(request, song_id):
         am_embed = song.embed_set.filter(embed_type='apple music').get()
     except:
         am_embed = None
-    return render(request, 'sethtunes/song_detail.html', {'song':song, 'am_embed': am_embed})
+    return render(request, 'sethtunes/song_detail.html', 
+            {'song':song, 'am_embed': am_embed})
 
 def search_results(request):
     results = None
@@ -66,7 +74,8 @@ def search_results(request):
     return render(request, 'sethtunes/search_results.html', {'results':results})
 
 def new_music(request):
-    albums_raw = Album.objects.filter(release_date__lte=timezone.now()).order_by('-release_date')
+    albums_raw = Album.objects.filter(
+            release_date__lte=timezone.now()).order_by('-release_date')
     albums = []
     for album_raw in albums_raw[:300]:
         append = True

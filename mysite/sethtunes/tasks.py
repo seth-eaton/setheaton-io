@@ -25,6 +25,8 @@ def get_latest():
 
     wiki = wikipedia.Wikipedia('en')
 
+    print('Requesting new album reviews')
+
     request = Request(url='https://pitchfork.com/reviews/albums/',
                       data=None,
                       headers={'User-Agent': 'tegassharma/pitchfork-v0.1'})
@@ -39,10 +41,12 @@ def get_latest():
         review_artist = reviews[review]['artists'][0]['display_name']
         review_album = reviews[review]['tombstone']['albums'][0]['album']['display_name']
         score = reviews[review]['tombstone']['albums'][0]['rating']['rating']
+        print('Found new review for %s' % review_album)
         try:
             album = Album.objects.filter(artist_name=review_artist).filter(album_name=review_album).get()
             if album.pfreview_set.count() == 0:
                 add_review(album, reviews[review]['url'])
+            else:
         except:
             if float(score) >= 5:
                 try:

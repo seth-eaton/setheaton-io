@@ -13,9 +13,10 @@ class Command(BaseCommand):
 
         try:
             a = Album.objects.get(album_name=inp)
-            inp = input('Found %s by %s, would you like to add a new review? (y/n)' % (a.album_name, a.artist_name))
+            inp = input('Found %s by %s, would you like to add a new review? (y/n) ' % (a.album_name, a.artist_name))
             if inp == 'y':
-                a.pfreview_set.all().delete()
+                if a.pfreview_set.all().count() > 0:
+                    a.pfreview_set.all().delete()
                 url = input('Please enter the link: ')
                 
                 request = Request(url=url, data=None, headers={'User-Agent': 'tejassharma/pitchfork-v0.1'})

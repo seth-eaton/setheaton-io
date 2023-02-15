@@ -73,6 +73,7 @@ class SethReview(models.Model):
     fav_songs = models.CharField(max_length=3000)
     fav_lyric = models.TextField(null=True, blank=True)
     date = models.DateTimeField()
+    visible = models.BooleanField(null=True, default=True)
 
     def __str__(self):
         return self.artist_name + ': ' + self.album_name
